@@ -1,15 +1,15 @@
 {
-  "name": "blastoff",
+  "name": "moonar",
   "version": "1.0.0",
-  "description": "boilerplate by mitchell",
+  "description": "a simple lunar calendar with a little extra celestial spice",
   "main": "index.jsx",
   "scripts": {
-    "server": "node ./server/index.js",
-    "dev-server": "nodemon server/index.js",
+    "start": "node ./server/index.js",
+    "dev-start": "nodemon server/index.js",
     "build": "webpack --mode production --watch",
     "dev-build": "webpack -d --watch"
   },
-  "author": "",
+  "author": "mitchell dill",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",

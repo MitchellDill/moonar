@@ -9,6 +9,6 @@ export default class App extends Component {
   }
 
   render() {
-    return <div>heya baby</div>;
+    return <div>moon!</div>;
   }
 }
