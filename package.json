@@ -12,7 +12,9 @@
   "author": "mitchell dill",
   "license": "ISC",
   "dependencies": {
+    "date-fns": "^2.2.1",
     "express": "^4.17.1",
+    "node-fetch": "^2.6.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
   },

@@ -5,9 +5,21 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      exists: true,
-      lunationNumber: 0.25,
+      lunationNumber: 0,
     };
+  }
+
+  async callMoonAPI(date = new Date()) {
+    const response = await fetch(`http://localhost:3000/api/darksky/`);
+    const jsonResponse = await response.json();
+    const { moon } = jsonResponse;
+    this.setState({
+      lunationNumber: moon,
+    });
+  }
+
+  componentDidMount() {
+    this.callMoonAPI();
   }
 
   render() {

@@ -23,8 +23,8 @@ const determineMoonPhase = lunationNumber => {
   return possibleMoons[moonSelectorIndex];
 };
 
-const Moon = props => {
-  return <div>{determineMoonPhase(props.lunationNumber)}</div>;
+const Moon = ({ lunationNumber }) => {
+  return <div>{determineMoonPhase(lunationNumber)}</div>;
 };
 
 export default Moon;
