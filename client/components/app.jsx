@@ -12,7 +12,10 @@ export default class App extends Component {
   async callMoonAPI(date = new Date()) {
     const response = await fetch(`http://localhost:3000/api/darksky/`);
     const jsonResponse = await response.json();
-    console.log(jsonResponse);
+    const { moon } = jsonResponse;
+    this.setState({
+      lunationNumber: moon,
+    });
   }
 
   componentDidMount() {

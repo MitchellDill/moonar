@@ -10,8 +10,9 @@ app.use(express.json());
 app.use(express.static('public'));
 
 app.get('/api/darksky', async (req, res) => {
-  const weather = await fetchLunationNumber();
-  res.send(weather);
+  const lunationNumber = await fetchLunationNumber();
+  console.log(lunationNumber);
+  res.send({ moon: lunationNumber });
 });
 
 app.listen(PORT, () => {

@@ -7,14 +7,15 @@ const addresses = {
 };
 
 const fetchLunationNumber = async () => {
-  const weather = await fetch(
+  const response = await fetch(
     `${addresses.moon}/${DARK_SKY_KEY}/${LATITUDE},${LONGITUDE}?exclude=currently,minutely,hourly,alerts,flags`,
     {
       headers: { 'Content-Type': 'application/json' },
     },
   );
-  const jsonWeather = await weather.json();
-  return jsonWeather;
+  const jsonResponse = await response.json();
+  const { moonPhase } = jsonResponse.daily.data[0];
+  return moonPhase;
 };
 
 module.exports = { fetchLunationNumber };
