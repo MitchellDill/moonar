@@ -4,7 +4,9 @@ import PropTypes from "prop-types";
 const Mercury = ({ retrograde }) => {
   return (
     <div>
-      {retrograde ? "mercury retrograde!" : "mercury NOT retrograde. phew"}
+      {retrograde
+        ? "mercury retrograde! hope it doesn't break the site"
+        : "mercury NOT retrograde. phew"}
     </div>
   );
 };

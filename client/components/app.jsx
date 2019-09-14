@@ -12,7 +12,7 @@ export default class App extends Component {
   }
 
   async callMoonAPI(date = new Date()) {
-    const response = await fetch(`http://localhost:3000/api/darksky/`);
+    const response = await fetch(`http://localhost:3000/api/public/moon/`);
     const jsonResponse = await response.json();
     const { moon } = jsonResponse;
     this.setState({
@@ -21,7 +21,7 @@ export default class App extends Component {
   }
 
   async callMercuryAPI(date = new Date()) {
-    const response = await fetch(`http://localhost:3000/api/mercury/`);
+    const response = await fetch(`http://localhost:3000/api/public/mercury/`);
     const jsonResponse = await response.json();
     const { isMercuryRetrograde } = jsonResponse;
     this.setState({

@@ -9,12 +9,12 @@ app.use(express.json());
 
 app.use(express.static('public'));
 
-app.get('/api/darksky', async (req, res) => {
+app.get('/api/public/moon', async (req, res) => {
   const lunationNumber = await fetchLunationNumber();
   res.send({ moon: lunationNumber });
 });
 
-app.get('/api/mercury', async (req, res) => {
+app.get('/api/public/mercury', async (req, res) => {
   const isMercuryRetrograde = await fetchMercuryRetrograde();
   res.send({ isMercuryRetrograde });
 });
