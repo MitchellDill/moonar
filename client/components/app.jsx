@@ -12,21 +12,29 @@ export default class App extends Component {
   }
 
   async callMoonAPI(date = new Date()) {
-    const response = await fetch(`http://localhost:3000/api/public/moon/`);
-    const jsonResponse = await response.json();
-    const { moon } = jsonResponse;
-    this.setState({
-      lunationNumber: moon,
-    });
+    try {
+      const response = await fetch(`http://localhost:3000/api/public/moon/`);
+      const jsonResponse = await response.json();
+      const { moon } = jsonResponse;
+      this.setState({
+        lunationNumber: moon,
+      });
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   async callMercuryAPI(date = new Date()) {
-    const response = await fetch(`http://localhost:3000/api/public/mercury/`);
-    const jsonResponse = await response.json();
-    const { isMercuryRetrograde } = jsonResponse;
-    this.setState({
-      isMercuryRetrograde,
-    });
+    try {
+      const response = await fetch(`http://localhost:3000/api/public/mercury/`);
+      const jsonResponse = await response.json();
+      const { isMercuryRetrograde } = jsonResponse;
+      this.setState({
+        isMercuryRetrograde,
+      });
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   componentDidMount() {
