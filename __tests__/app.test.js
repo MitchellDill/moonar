@@ -10,12 +10,17 @@ window.fetch = jest.fn().mockImplementation(address => {
   };
 });
 
-describe("App component --->", () => {
+describe("App component", () => {
   test("should shallow render without throwing an error", () => {
     expect(shallow(<App />));
   });
 
   test("should mount in a full DOM render", () => {
     expect(mount(<App />));
+  });
+
+  test("should render two subcomponents", () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.find("div").children()).toHaveLength(2);
   });
 });
