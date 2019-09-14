@@ -18,4 +18,12 @@ const fetchLunationNumber = async () => {
   return moonPhase;
 };
 
-module.exports = { fetchLunationNumber };
+const fetchMercuryRetrograde = async () => {
+  const response = await fetch(`${addresses.mercury}`, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+  const jsonResponse = await response.json();
+  return jsonResponse.is_retrograde;
+};
+
+module.exports = { fetchLunationNumber, fetchMercuryRetrograde };

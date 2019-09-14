@@ -1,5 +1,5 @@
 const express = require('express');
-const { fetchLunationNumber } = require('./apiHelpers');
+const { fetchLunationNumber, fetchMercuryRetrograde } = require('./apiHelpers');
 
 const PORT = 3000;
 
@@ -9,10 +9,14 @@ app.use(express.json());
 
 app.use(express.static('public'));
 
-app.get('/api/darksky', async (req, res) => {
+app.get('/api/public/moon', async (req, res) => {
   const lunationNumber = await fetchLunationNumber();
-  console.log(lunationNumber);
   res.send({ moon: lunationNumber });
+});
+
+app.get('/api/public/mercury', async (req, res) => {
+  const isMercuryRetrograde = await fetchMercuryRetrograde();
+  res.send({ isMercuryRetrograde });
 });
 
 app.listen(PORT, () => {
