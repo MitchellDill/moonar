@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 const express = require('express');
 const { fetchLunationNumber, fetchMercuryRetrograde } = require('./apiHelpers');
-const { getCosmicMonth } = require('../database/mongoHelpers');
+const { getCosmicMonth, postCosmicMonth } = require('../database/mongoHelpers');
 
 const PORT = 3000;
 
@@ -20,6 +20,19 @@ app.get('api/months', async (req, res) => {
     console.error(e);
   } finally {
     res.send({ planetarySchedule });
+  }
+});
+
+app.post('api/months', async (req, res) => {
+  const month = req.body;
+  try {
+    await postCosmicMonth(month);
+    res.status(201).send('posted! good moon.');
+  } catch (e) {
+    console.error(e);
+    res.send(
+      'something went wrong in the post, dear friend. is the moon still there? look up and get back to us.',
+    );
   }
 });
 

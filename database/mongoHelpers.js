@@ -1,3 +1,5 @@
 const getCosmicMonth = (month) => ({});
 
-module.exports = { getCosmicMonth };
+const postCosmicMonth = (month) => ({});
+
+module.exports = { getCosmicMonth, postCosmicMonth };
