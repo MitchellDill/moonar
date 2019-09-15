@@ -3,9 +3,14 @@ import { shallow, mount } from "enzyme";
 import App from "../client/components/app.jsx";
 
 window.fetch = jest.fn().mockImplementation(address => {
+  const fetchObject = {
+    moon: 0.5,
+    isMercuryRetrograde: true,
+    month: new Array(27),
+  };
   return {
     json: jest.fn(() => {
-      return { moon: 0.5, isMercuryRetrograde: true };
+      return fetchObject;
     }),
   };
 });

@@ -8,6 +8,8 @@ export default class App extends Component {
     this.state = {
       lunationNumber: 0,
       isMercuryRetrograde: false,
+      currentMonth: { number: 0, dailyLunations: [] },
+      nextMonth: { number: 1, dailyLunations: [] },
     };
   }
 
@@ -38,8 +40,8 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    this.callMoonAPI();
-    this.callMercuryAPI();
+    // this.callMoonAPI();
+    // this.callMercuryAPI();
   }
 
   render() {
