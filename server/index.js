@@ -1,6 +1,10 @@
 /* eslint-disable no-console */
 const express = require('express');
-const { fetchLunationNumber, fetchMercuryRetrograde } = require('./apiHelpers');
+const {
+  fetchLunationNumber,
+  fetchMercuryRetrograde,
+  buildCosmicMonth,
+} = require('./apiHelpers');
 const { getCosmicMonth, postCosmicMonth } = require('../database/mongoHelpers');
 
 const PORT = 3000;
@@ -37,13 +41,14 @@ app.post('api/months', async (req, res) => {
 });
 
 app.get('/api/public/moon', async (req, res) => {
-  let lunationNumber;
+  const { month } = req.query;
+  const cosmicMonth = {};
   try {
-    lunationNumber = await fetchLunationNumber();
+    cosmicMonth = await buildCosmicMonth(month);
   } catch (e) {
     console.error(e);
   } finally {
-    res.send({ moon: lunationNumber });
+    res.send(cosmicMonth);
   }
 });
 
