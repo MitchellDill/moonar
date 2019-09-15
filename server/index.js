@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 const express = require('express');
 const { fetchLunationNumber, fetchMercuryRetrograde } = require('./apiHelpers');
-const {} = require('../database/mongoHelpers');
+const { getCosmicMonth } = require('../database/mongoHelpers');
 
 const PORT = 3000;
 
@@ -13,8 +13,9 @@ app.use(express.static('public'));
 
 app.get('api/months', async (req, res) => {
   let planetarySchedule;
+  const { month } = req.query;
   try {
-    planetarySchedule;
+    planetarySchedule = await getCosmicMonth(month);
   } catch (e) {
     console.error(e);
   } finally {

@@ -1,1 +1,3 @@
-module.exports = {};
+const getCosmicMonth = (month) => ({});
+
+module.exports = { getCosmicMonth };
