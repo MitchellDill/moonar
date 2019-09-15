@@ -8,30 +8,40 @@ export default class App extends Component {
     this.state = {
       lunationNumber: 0,
       isMercuryRetrograde: false,
+      currentMonth: { number: 0, dailyLunations: [] },
+      nextMonth: { number: 1, dailyLunations: [] },
     };
   }
 
   async callMoonAPI(date = new Date()) {
-    const response = await fetch(`http://localhost:3000/api/public/moon/`);
-    const jsonResponse = await response.json();
-    const { moon } = jsonResponse;
-    this.setState({
-      lunationNumber: moon,
-    });
+    try {
+      const response = await fetch(`http://localhost:3000/api/public/moon/`);
+      const jsonResponse = await response.json();
+      const { moon } = jsonResponse;
+      this.setState({
+        lunationNumber: moon,
+      });
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   async callMercuryAPI(date = new Date()) {
-    const response = await fetch(`http://localhost:3000/api/public/mercury/`);
-    const jsonResponse = await response.json();
-    const { isMercuryRetrograde } = jsonResponse;
-    this.setState({
-      isMercuryRetrograde,
-    });
+    try {
+      const response = await fetch(`http://localhost:3000/api/public/mercury/`);
+      const jsonResponse = await response.json();
+      const { isMercuryRetrograde } = jsonResponse;
+      this.setState({
+        isMercuryRetrograde,
+      });
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   componentDidMount() {
-    this.callMoonAPI();
-    this.callMercuryAPI();
+    // this.callMoonAPI();
+    // this.callMercuryAPI();
   }
 
   render() {

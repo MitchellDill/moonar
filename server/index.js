@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const express = require('express');
 const { fetchLunationNumber, fetchMercuryRetrograde } = require('./apiHelpers');
 
@@ -10,13 +11,25 @@ app.use(express.json());
 app.use(express.static('public'));
 
 app.get('/api/public/moon', async (req, res) => {
-  const lunationNumber = await fetchLunationNumber();
-  res.send({ moon: lunationNumber });
+  let lunationNumber;
+  try {
+    lunationNumber = await fetchLunationNumber();
+  } catch (e) {
+    console.error(e);
+  } finally {
+    res.send({ moon: lunationNumber });
+  }
 });
 
 app.get('/api/public/mercury', async (req, res) => {
-  const isMercuryRetrograde = await fetchMercuryRetrograde();
-  res.send({ isMercuryRetrograde });
+  let isMercuryRetrograde;
+  try {
+    isMercuryRetrograde = await fetchMercuryRetrograde();
+  } catch (e) {
+    console.error(e);
+  } finally {
+    res.send({ isMercuryRetrograde });
+  }
 });
 
 app.listen(PORT, () => {
