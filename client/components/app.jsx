@@ -14,18 +14,39 @@ export default class App extends Component {
     };
   }
 
-  async checkIfMonthExistsInDB(month = this.state.date.getMonth()) {
+  async getPlanetarySchedule(month = this.state.date.getMonth()) {
     try {
-      const response = await fetch(`http://localhost:3000/api/months`);
+      const response = await fetch(
+        `http://localhost:3000/api/months?month=${month}`
+      );
       const jsonResponse = await response.json();
       const { planetarySchedule } = jsonResponse;
-      planetarySchedule ? null : this.getPlantarySchedule(month);
+      const isCurrentMonth = month === new Date().getMonth();
+      planetarySchedule
+        ? this.receivePlanetarySchedule(planetarySchedule, isCurrentMonth)
+        : this.createPlanetarySchedule(month);
     } catch (e) {
       console.error(e);
+    } finally {
+      isCurrentMonth && month < 11
+        ? this.getPlanetarySchedule(month + 1)
+        : null;
     }
   }
 
-  async getPlantarySchedule(month) {
+  async receivePlanetarySchedule(planetarySchedule, isCurrentMonth) {
+    const todaysIndex = this.state.date.getDate() + 1;
+    const todaysLunation = planetarySchedule[todaysIndex].lunation;
+    const todaysRetrograde = planetarySchedule[todaysIndex].mercury;
+    const currentOrNextMonth = isCurrentMonth ? "currentMonth" : "nextMonth";
+    this.setState({
+      lunationNumber: todaysLunation,
+      isMercuryRetrograde: todaysRetrograde,
+      [currentOrNextMonth]: planetarySchedule,
+    });
+  }
+
+  async createPlanetarySchedule(month) {
     const cosmicMonth = { month };
     try {
       cosmicMonth.mercury = await this.callMercuryAPI(month);
@@ -54,10 +75,8 @@ export default class App extends Component {
     try {
       const response = await fetch(`http://localhost:3000/api/public/moon/`);
       const jsonResponse = await response.json();
-      const { moon } = jsonResponse;
-      this.setState({
-        lunationNumber: moon,
-      });
+      const { moonsMonth } = jsonResponse;
+      return moonsMonth;
     } catch (e) {
       console.error(e);
     }
@@ -67,19 +86,20 @@ export default class App extends Component {
     try {
       const response = await fetch(`http://localhost:3000/api/public/mercury/`);
       const jsonResponse = await response.json();
-      const { isMercuryRetrograde } = jsonResponse;
-      this.setState({
-        isMercuryRetrograde,
-      });
+      const { mercurysMonth } = jsonResponse;
+      return mercurysMonth;
     } catch (e) {
       console.error(e);
     }
   }
 
   componentDidMount() {
-    this.setState({
-      date: new Date(),
-    });
+    this.setState(
+      {
+        date: new Date(),
+      },
+      this.getPlanetarySchedule()
+    );
     // this.callMoonAPI();
     // this.callMercuryAPI();
   }
