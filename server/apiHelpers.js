@@ -65,6 +65,7 @@ const buildCosmicMonth = async (month) => {
     cosmicDay.mercury = await fetchMercuryRetrograde(dateForMercury);
     cosmicMonth.days.push(cosmicDay);
   }
+  return cosmicMonth;
 };
 
 module.exports = {

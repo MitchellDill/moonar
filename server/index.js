@@ -36,7 +36,7 @@ app.post('api/months', async (req, res) => {
   }
 });
 
-app.get('/api/public/moon', async (req, res) => {
+app.get('/api/planets', async (req, res) => {
   const { month } = req.query;
   let cosmicMonth;
   try {
@@ -47,17 +47,6 @@ app.get('/api/public/moon', async (req, res) => {
     res.send(cosmicMonth);
   }
 });
-
-// app.get('/api/public/mercury', async (req, res) => {
-//   let isMercuryRetrograde;
-//   try {
-//     isMercuryRetrograde = await fetchMercuryRetrograde();
-//   } catch (e) {
-//     console.error(e);
-//   } finally {
-//     res.send({ isMercuryRetrograde });
-//   }
-// });
 
 app.listen(PORT, () => {
   console.log(`moons out goons out on port ${PORT}`);

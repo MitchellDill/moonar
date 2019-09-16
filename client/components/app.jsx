@@ -9,8 +9,8 @@ export default class App extends Component {
       date: null,
       lunationNumber: 0,
       isMercuryRetrograde: false,
-      currentMonth: { number: 0, dailyLunations: [] },
-      nextMonth: { number: 1, dailyLunations: [] },
+      currentMonth: { number: 0, days: [] },
+      nextMonth: { number: 1, days: [] },
     };
   }
 
@@ -47,13 +47,11 @@ export default class App extends Component {
   }
 
   async createPlanetarySchedule(month) {
-    const cosmicMonth = { month };
     try {
-      cosmicMonth.mercury = await this.callMercuryAPI(month);
-      cosmicMonth.lunation = await this.callMoonAPI(month);
-      if (cosmicMonth.mercury && cosmicMonth.lunation) {
-        this.postPlanetarySchedule(cosmicMonth);
-      }
+      const cosmicMonth = await this.callMoonAPI(month);
+      cosmicMonth
+        ? this.postPlanetarySchedule(cosmicMonth)
+        : console.log("oops! no response from external API call");
     } catch (e) {
       console.error(e);
     }
@@ -73,21 +71,10 @@ export default class App extends Component {
 
   async callMoonAPI(month) {
     try {
-      const response = await fetch(`http://localhost:3000/api/public/moon/`);
+      const response = await fetch(`http://localhost:3000/api/planets/`);
       const jsonResponse = await response.json();
       const { moonsMonth } = jsonResponse;
       return moonsMonth;
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  async callMercuryAPI(month) {
-    try {
-      const response = await fetch(`http://localhost:3000/api/public/mercury/`);
-      const jsonResponse = await response.json();
-      const { mercurysMonth } = jsonResponse;
-      return mercurysMonth;
     } catch (e) {
       console.error(e);
     }
