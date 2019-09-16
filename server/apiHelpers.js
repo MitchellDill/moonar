@@ -15,7 +15,6 @@ const fetchLunationNumber = async (date) => {
     },
   );
   const jsonResponse = await response.json();
-  console.log(jsonResponse);
   const { moonPhase } = jsonResponse.daily.data[0];
   return moonPhase;
 };
@@ -50,22 +49,24 @@ const buildCosmicMonth = async (month) => {
   for (let day = 1; day <= daysInMonth; day++) {
     const cosmicDay = {};
     let dayString = day.toString();
+    const monthNumber = Number(month) + 1;
+    let monthString = monthNumber.toString();
     if (day < 10) {
       dayString = `0${dayString}`;
     }
-    const date = `${currentYear}-${month + 1}-${dayString}`;
-    // cosmicDay.moon = await fetchLunationNumber(
-    //   Date.UTC(currentYear, month, day),
-    // );
-    cosmicDay.mercury = await fetchMercuryRetrograde(date);
+    if (monthNumber < 10) {
+      monthString = `0${monthString}`;
+    }
+    const dateForMoon = `${currentYear}-${monthString}-${dayString}T20:00:00`;
+    const dateForMercury = `${currentYear}-${monthString}-${dayString}`;
+    // [YYYY]-[MM]-[DD]T[HH]:[MM]:[SS][timezone]
+
+    cosmicDay.moon = await fetchLunationNumber(dateForMoon);
+    cosmicDay.mercury = await fetchMercuryRetrograde(dateForMercury);
     cosmicMonth.days.push(cosmicDay);
-    console.log(day);
   }
-  console.log(cosmicMonth);
 };
 
 module.exports = {
-  fetchLunationNumber,
-  fetchMercuryRetrograde,
   buildCosmicMonth,
 };
