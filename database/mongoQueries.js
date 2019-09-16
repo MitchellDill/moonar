@@ -9,7 +9,7 @@ const getCosmicMonth = async (month) => {
       .find({ number: month }, { projection: { _id: 0 } })
       .limit(1)
       .toArray();
-    assert.strictEqual(1, result.length);
+    // assert.strictEqual(1, result.length);
     return result;
   } catch (err) {
     console.log(err);

@@ -12,7 +12,7 @@ app.use(express.json());
 
 app.use(express.static('public'));
 
-app.get('api/months', async (req, res) => {
+app.get('/api/months', async (req, res) => {
   let planetarySchedule;
   const { month } = req.query;
   try {
@@ -24,7 +24,7 @@ app.get('api/months', async (req, res) => {
   }
 });
 
-app.post('api/months', async (req, res) => {
+app.post('/api/months', async (req, res) => {
   const month = req.body;
   try {
     await postCosmicMonth(month);
