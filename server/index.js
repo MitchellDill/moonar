@@ -1,10 +1,6 @@
 /* eslint-disable no-console */
 const express = require('express');
-const {
-  fetchLunationNumber,
-  fetchMercuryRetrograde,
-  buildCosmicMonth,
-} = require('./apiHelpers');
+const { buildCosmicMonth } = require('./apiHelpers');
 const { getCosmicMonth, postCosmicMonth } = require('../database/mongoHelpers');
 
 const PORT = 3000;
@@ -42,7 +38,7 @@ app.post('api/months', async (req, res) => {
 
 app.get('/api/public/moon', async (req, res) => {
   const { month } = req.query;
-  const cosmicMonth = {};
+  let cosmicMonth;
   try {
     cosmicMonth = await buildCosmicMonth(month);
   } catch (e) {
@@ -52,16 +48,16 @@ app.get('/api/public/moon', async (req, res) => {
   }
 });
 
-app.get('/api/public/mercury', async (req, res) => {
-  let isMercuryRetrograde;
-  try {
-    isMercuryRetrograde = await fetchMercuryRetrograde();
-  } catch (e) {
-    console.error(e);
-  } finally {
-    res.send({ isMercuryRetrograde });
-  }
-});
+// app.get('/api/public/mercury', async (req, res) => {
+//   let isMercuryRetrograde;
+//   try {
+//     isMercuryRetrograde = await fetchMercuryRetrograde();
+//   } catch (e) {
+//     console.error(e);
+//   } finally {
+//     res.send({ isMercuryRetrograde });
+//   }
+// });
 
 app.listen(PORT, () => {
   console.log(`moons out goons out on port ${PORT}`);
