@@ -7,7 +7,7 @@ const addresses = {
 };
 
 const fetchLunationNumber = async (date) => {
-  // date parameter expects UTC
+  // date parameter expects [YYYY]-[MM]-[DD]T[HH]:[MM]:[SS][timezone]
   const response = await fetch(
     `${addresses.moon}/${DARK_SKY_KEY}/${LATITUDE},${LONGITUDE},${date}?exclude=currently,hourly,flags`,
     {
@@ -59,7 +59,6 @@ const buildCosmicMonth = async (month) => {
     }
     const dateForMoon = `${currentYear}-${monthString}-${dayString}T20:00:00`;
     const dateForMercury = `${currentYear}-${monthString}-${dayString}`;
-    // [YYYY]-[MM]-[DD]T[HH]:[MM]:[SS][timezone]
 
     cosmicDay.moon = await fetchLunationNumber(dateForMoon);
     cosmicDay.mercury = await fetchMercuryRetrograde(dateForMercury);

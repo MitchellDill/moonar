@@ -2,7 +2,7 @@
 const express = require('express');
 const { initializeDatabases } = require('../database/mongoDB');
 const { buildCosmicMonth } = require('./apiHelpers');
-const { getCosmicMonth, postCosmicMonth } = require('../database/mongoHelpers');
+const { getCosmicMonth, postCosmicMonth } = require('../database/mongoQueries');
 
 const PORT = 3000;
 
