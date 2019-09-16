@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 const express = require('express');
+const { initializeDatabases } = require('../database/mongoDB');
 const { buildCosmicMonth } = require('./apiHelpers');
 const { getCosmicMonth, postCosmicMonth } = require('../database/mongoHelpers');
 
@@ -48,6 +49,8 @@ app.get('/api/planets', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`moons out goons out on port ${PORT}`);
+initializeDatabases().then(() => {
+  app.listen(PORT, () => {
+    console.log(`moons out goons out on port ${PORT}`);
+  });
 });
