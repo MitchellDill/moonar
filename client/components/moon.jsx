@@ -11,6 +11,7 @@ const determineMoonPhase = lunationNumber => {
     "waning gibbous",
     "last quarter",
     "waning crescent",
+    "new",
   ];
 
   let moonSelectorIndex = 0;
