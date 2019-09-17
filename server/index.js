@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 const express = require('express');
+const { initializeDatabases } = require('../database/mongoDB');
 const { buildCosmicMonth } = require('./apiHelpers');
-const { getCosmicMonth, postCosmicMonth } = require('../database/mongoHelpers');
+const { getCosmicMonth, postCosmicMonth } = require('../database/mongoQueries');
 
 const PORT = 3000;
 
@@ -11,19 +12,21 @@ app.use(express.json());
 
 app.use(express.static('public'));
 
-app.get('api/months', async (req, res) => {
+app.get('/api/months', async (req, res) => {
   let planetarySchedule;
+  console.log('query is: ', req.query);
   const { month } = req.query;
   try {
     planetarySchedule = await getCosmicMonth(month);
   } catch (e) {
     console.error(e);
   } finally {
+    console.log('sending back: ', planetarySchedule);
     res.send({ planetarySchedule });
   }
 });
 
-app.post('api/months', async (req, res) => {
+app.post('/api/months', async (req, res) => {
   const month = req.body;
   try {
     await postCosmicMonth(month);
@@ -36,7 +39,7 @@ app.post('api/months', async (req, res) => {
   }
 });
 
-app.get('/api/planets', async (req, res) => {
+app.get('/api/external/months', async (req, res) => {
   const { month } = req.query;
   let cosmicMonth;
   try {
@@ -48,6 +51,8 @@ app.get('/api/planets', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`moons out goons out on port ${PORT}`);
+initializeDatabases().then(() => {
+  app.listen(PORT, () => {
+    console.log(`moons out goons out on port ${PORT}`);
+  });
 });
