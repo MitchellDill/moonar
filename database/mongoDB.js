@@ -3,6 +3,7 @@ const { URI } = require('./mongo.config.json');
 
 const options = {
   useNewUrlParser: true,
+  useUnifiedTopology: true,
 };
 
 const databases = {};
