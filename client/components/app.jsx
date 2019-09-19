@@ -103,6 +103,7 @@ export default class App extends Component {
       <div>
         <Moon
           lunationNumber={this.state.lunationNumber}
+          lunarSchedule={this.compileUpcomingLunation}
           loading={this.state.currentlyFetching}
         />
         <Mercury
