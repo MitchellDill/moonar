@@ -96,24 +96,29 @@ export default class App extends Component {
 
   compileUpcomingLunation() {
     const { currentMonth, nextMonth, date } = this.state;
-    let tomorrow = date.getDate() + 1;
-    let month = date.getMonth();
-    console.log("compiler ran", tomorrow, month, currentMonth);
+    const tomorrow = date.getDate();
+    const month = date.getMonth();
 
-    const mapShortTermLunarCalendar = nextDays => {
+    const mapShortTermLunarCalendar = (nextDays, startingDate, month) => {
       console.log("mapper ran", nextDays);
       return nextDays.map((d, i) => {
-        return { lunation: d.moon, day: tomorrow + i, month };
+        return { lunation: d.moon, day: startingDate + i, month };
       });
     };
 
-    let nextDays = mapShortTermLunarCalendar(currentMonth.slice(tomorrow));
+    let nextDays = mapShortTermLunarCalendar(
+      currentMonth.slice(tomorrow),
+      tomorrow,
+      month
+    );
 
     if (nextDays.length < 14) {
-      tomorrow = 0;
-      month += 1;
       const diff = 14 - nextDays.length;
-      const nextNextDays = mapShortTermLunarCalendar(nextMonth.slice(0, diff));
+      const nextNextDays = mapShortTermLunarCalendar(
+        nextMonth.slice(0, diff),
+        0,
+        month + 1
+      );
       nextDays = [...nextDays, ...nextNextDays];
     }
     return nextDays;

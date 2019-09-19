@@ -36,7 +36,7 @@ const findNextSignificantMoon = lunarSchedule => {
       nextSignificantMoon.day = day;
       nextSignificantMoon.month = month;
       return nextSignificantMoon;
-    } else if (lunation > 0.98 && lunation < 0.02) {
+    } else if (lunation > 0.98 || lunation < 0.02) {
       const { day, month } = lunarSchedule[i];
       nextSignificantMoon.phase = "new";
       nextSignificantMoon.day = day;
