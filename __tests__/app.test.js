@@ -4,9 +4,9 @@ import App from "../client/components/app.jsx";
 
 window.fetch = jest.fn().mockImplementation(address => {
   const fetchObject = {
-    moon: 0.5,
-    isMercuryRetrograde: true,
-    month: new Array(27),
+    month: 0,
+    year: 0,
+    days: new Array(27).fill({ moon: 0, mercury: false }),
   };
   return {
     json: jest.fn(() => {
@@ -14,6 +14,8 @@ window.fetch = jest.fn().mockImplementation(address => {
     }),
   };
 });
+
+//need to mock the methods which fire during lifecycle
 
 describe("App component", () => {
   test("should shallow render without throwing an error", () => {
