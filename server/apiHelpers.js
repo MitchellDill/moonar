@@ -45,7 +45,7 @@ const buildCosmicMonth = async (month) => {
     daysInMonth = 30;
   }
 
-  const cosmicMonth = { number: month, days: [] };
+  const cosmicMonth = { month, year: currentYear, days: [] };
   for (let day = 1; day <= daysInMonth; day++) {
     const cosmicDay = {};
     let dayString = day.toString();

@@ -6,7 +6,7 @@ const getCosmicMonth = async (month) => {
   try {
     const collection = await getUserDatabase().collection('months');
     const result = await collection
-      .find({ number: month }, { projection: { _id: 0 } })
+      .find({ month }, { projection: { _id: 0 } })
       .limit(1)
       .toArray();
     // assert.strictEqual(1, result.length);

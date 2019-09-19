@@ -9,12 +9,15 @@ export default class App extends Component {
       date: new Date(),
       lunationNumber: 0,
       isMercuryRetrograde: false,
-      currentMonth: { number: 0, days: [] },
-      nextMonth: { number: 1, days: [] },
+      currentMonth: [],
+      nextMonth: [],
+      currentlyFetching: false,
     };
   }
 
-  async getPlanetarySchedule(month = new Date().getMonth()) {
+  //months are all 0-index
+
+  async getPlanetarySchedule(month = this.state.date.getMonth()) {
     const isCurrentMonth = month === new Date().getMonth();
     try {
       const response = await fetch(
@@ -23,9 +26,9 @@ export default class App extends Component {
       const jsonResponse = await response.json();
       const [planetarySchedule] = jsonResponse.planetarySchedule;
       console.log("planetary schedule: ", planetarySchedule);
-      planetarySchedule.days.length > 0
+      planetarySchedule
         ? this.receivePlanetarySchedule(planetarySchedule, isCurrentMonth)
-        : this.createPlanetarySchedule(month);
+        : this.createPlanetarySchedule(month, isCurrentMonth);
     } catch (e) {
       console.error(e);
     } finally {
@@ -36,36 +39,43 @@ export default class App extends Component {
   }
 
   async receivePlanetarySchedule(planetarySchedule, isCurrentMonth) {
-    const todaysIndex = this.state.date.getDate();
-    const todaysLunation = planetarySchedule.days[todaysIndex].moon;
-    const todaysRetrograde = planetarySchedule.days[todaysIndex].mercury;
-    const currentOrNextMonth = isCurrentMonth
-      ? this.setState({
-          lunationNumber: todaysLunation,
-          isMercuryRetrograde: todaysRetrograde,
-          currentMonth: planetarySchedule.days,
-        })
-      : this.setState({ nextMonth: planetarySchedule.days });
+    if (isCurrentMonth) {
+      const todaysIndex = this.state.date.getDate();
+      const todaysLunation = planetarySchedule.days[todaysIndex].moon;
+      const todaysRetrograde = planetarySchedule.days[todaysIndex].mercury;
+      this.setState({
+        lunationNumber: todaysLunation,
+        isMercuryRetrograde: todaysRetrograde,
+        currentMonth: planetarySchedule.days,
+        currentlyFetching: false,
+      });
+    } else {
+      this.setState({ nextMonth: planetarySchedule.days });
+    }
   }
 
-  async createPlanetarySchedule(month) {
+  async createPlanetarySchedule(month, isCurrentMonth) {
+    isCurrentMonth ? this.setState({ currentlyFetching: true }) : null;
     try {
       const cosmicMonth = await this.callMoonAPI(month);
       cosmicMonth
-        ? this.postPlanetarySchedule(cosmicMonth)
+        ? this.postPlanetarySchedule(cosmicMonth, isCurrentMonth)
         : console.log("oops! no response from external API call");
     } catch (e) {
       console.error(e);
     }
   }
 
-  async postPlanetarySchedule(cosmicData) {
+  async postPlanetarySchedule(cosmicData, isCurrentMonth) {
     try {
       await fetch(`http://localhost:3000/api/months`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(cosmicData),
       });
+      isCurrentMonth
+        ? this.getPlanetarySchedule()
+        : this.getPlanetarySchedule(this.state.date.getMonth() + 1);
     } catch (e) {
       console.log("error posting planetary schedule: ", e);
     }
@@ -76,12 +86,42 @@ export default class App extends Component {
       const response = await fetch(
         `http://localhost:3000/api/external/months?month=${month}`
       );
-      console.log("response: ", response);
       const jsonResponse = await response.json();
+      console.log("response: ", jsonResponse);
       return jsonResponse;
     } catch (e) {
       console.error(e);
     }
+  }
+
+  compileUpcomingLunation() {
+    const { currentMonth, nextMonth, date } = this.state;
+    const tomorrow = date.getDate();
+    const month = date.getMonth();
+
+    const mapShortTermLunarCalendar = (nextDays, startingDate, month) => {
+      console.log("mapper ran", nextDays);
+      return nextDays.map((d, i) => {
+        return { lunation: d.moon, day: startingDate + i, month };
+      });
+    };
+
+    let nextDays = mapShortTermLunarCalendar(
+      currentMonth.slice(tomorrow),
+      tomorrow,
+      month
+    );
+
+    if (nextDays.length < 14) {
+      const diff = 14 - nextDays.length;
+      const nextNextDays = mapShortTermLunarCalendar(
+        nextMonth.slice(0, diff),
+        0,
+        month + 1
+      );
+      nextDays = [...nextDays, ...nextNextDays];
+    }
+    return nextDays;
   }
 
   componentDidMount() {
@@ -91,8 +131,15 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <Moon lunationNumber={this.state.lunationNumber} />
-        <Mercury retrograde={this.state.isMercuryRetrograde} />
+        <Moon
+          lunationNumber={this.state.lunationNumber}
+          lunarSchedule={this.compileUpcomingLunation()}
+          loading={this.state.currentlyFetching}
+        />
+        <Mercury
+          retrograde={this.state.isMercuryRetrograde}
+          loading={this.state.currentlyFetching}
+        />
       </div>
     );
   }

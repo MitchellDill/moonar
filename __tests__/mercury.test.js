@@ -4,10 +4,10 @@ import Mercury from "../client/components/mercury.jsx";
 
 describe("Mercury component", () => {
   test("should shallow render without throwing an error", () => {
-    expect(shallow(<Mercury retrograde={true} />));
+    expect(shallow(<Mercury retrograde={true} loading={false} />));
   });
 
   test("should mount in a full DOM render", () => {
-    expect(mount(<Mercury retrograde={true} />));
+    expect(mount(<Mercury retrograde={true} loading={false} />));
   });
 });
