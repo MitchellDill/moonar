@@ -94,6 +94,31 @@ export default class App extends Component {
     }
   }
 
+  compileUpcomingLunation() {
+    const { currentMonth, nextMonth, date } = this.state;
+    let tomorrow = date.getDate() + 1;
+    let month = date.getMonth();
+    console.log("compiler ran", tomorrow, month, currentMonth);
+
+    const mapShortTermLunarCalendar = nextDays => {
+      console.log("mapper ran", nextDays);
+      return nextDays.map((d, i) => {
+        return { lunation: d.moon, day: tomorrow + i, month };
+      });
+    };
+
+    let nextDays = mapShortTermLunarCalendar(currentMonth.slice(tomorrow));
+
+    if (nextDays.length < 14) {
+      tomorrow = 0;
+      month += 1;
+      const diff = 14 - nextDays.length;
+      const nextNextDays = mapShortTermLunarCalendar(nextMonth.slice(0, diff));
+      nextDays = [...nextDays, ...nextNextDays];
+    }
+    return nextDays;
+  }
+
   componentDidMount() {
     this.getPlanetarySchedule();
   }
@@ -103,7 +128,7 @@ export default class App extends Component {
       <div>
         <Moon
           lunationNumber={this.state.lunationNumber}
-          lunarSchedule={this.compileUpcomingLunation}
+          lunarSchedule={this.compileUpcomingLunation()}
           loading={this.state.currentlyFetching}
         />
         <Mercury

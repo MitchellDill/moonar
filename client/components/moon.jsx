@@ -27,6 +27,7 @@ const determineMoonPhase = lunationNumber => {
 
 const findNextSignificantMoon = lunarSchedule => {
   const nextSignificantMoon = {};
+  console.log(lunarSchedule);
   for (let i = 0; i < lunarSchedule.length; i++) {
     const { lunation } = lunarSchedule[i];
     if (lunation > 0.48 && lunation < 0.52) {
@@ -43,6 +44,7 @@ const findNextSignificantMoon = lunarSchedule => {
       return nextSignificantMoon;
     }
   }
+  return { phase: "loading", day: 1, month: 1 };
 };
 
 const Moon = ({ lunationNumber, lunarSchedule, loading }) => {
