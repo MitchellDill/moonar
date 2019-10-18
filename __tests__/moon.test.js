@@ -1,6 +1,7 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
 import Moon from "../client/components/moon.jsx";
+import moonPhaseList from "../client/moonPhaseList.js";
 
 const testLunarSchedule = [{ lunation: 0.0, day: 0, month: 0 }];
 

@@ -6,10 +6,12 @@ const testNextMoon = { lunation: 0.2, day: 0, month: 0 };
 
 describe("Date component", () => {
   test("should shallow render without throwing an error", () => {
-    expect(shallow(<MoonDetail nextMoon={testNextMoon} />));
+    expect(
+      shallow(<MoonDetail nextMoon={testNextMoon} nextMoonCountdown={3} />)
+    );
   });
 
   test("should mount in a full DOM render", () => {
-    expect(mount(<MoonDetail nextMoon={testNextMoon} />));
+    expect(mount(<MoonDetail nextMoon={testNextMoon} nextMoonCountdown={3} />));
   });
 });

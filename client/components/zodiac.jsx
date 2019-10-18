@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import zodiacList from "../zodiacList.js";
+import zodiacSigns from "../zodiacSignList.js";
 
 const Zodiac = ({ day, month, phase }) => {
   return <>in {determineZodiacOfMoon(day, month, phase)}</>;
@@ -27,7 +27,7 @@ const determineZodiacOfMoon = (day, month, phase) => {
     month = flipZodiacForFullMoon(month);
   }
 
-  return day < monthsZodiacCutoff ? zodiacList[month] : zodiacList[month + 1];
+  return day < monthsZodiacCutoff ? zodiacSigns[month] : zodiacSigns[month + 1];
 };
 
 const flipZodiacForFullMoon = month => {

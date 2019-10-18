@@ -1,4 +1,4 @@
-const zodiacList = [
+const zodiacSigns = [
   'Capricorn',
   'Aquarius',
   'Pisces',
@@ -14,4 +14,4 @@ const zodiacList = [
   'Capricorn',
 ];
 
-export default zodiacList;
+export default zodiacSigns;
