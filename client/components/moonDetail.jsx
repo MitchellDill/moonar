@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Date from "./date.jsx";
+import Zodiac from "./zodiac.jsx";
 
 const MoonDetail = ({ nextMoon }) => {
   const { phase, day, month } = nextMoon;
@@ -10,7 +11,10 @@ const MoonDetail = ({ nextMoon }) => {
     <div>
       <span>
         {`the next ${phase} moon is on `}
-        <Date zeroIndexDate={zeroIndexDate} />.
+        <Date zeroIndexDate={zeroIndexDate} />
+        {`, `}
+        <Zodiac day={day} month={month} phase={phase} />
+        {`.`}
       </span>
     </div>
   );

@@ -2,19 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import zodiacList from "../zodiacList.js";
 
-const Zodiac = props => {
-  let date = new Date();
-  let day = date.getDate();
-  let month = date.getMonth();
-
-  return <div>{determineZodiac(day, month)}</div>;
+const Zodiac = ({ day, month, phase }) => {
+  return <>in {determineZodiacOfMoon(day, month, phase)}</>;
 };
 
 export default Zodiac;
 
-Zodiac.propTypes = {};
-
-const determineZodiac = (day, month) => {
+const determineZodiacOfMoon = (day, month, phase) => {
   // zero indexed day and month
   let monthsZodiacCutoff;
   if (month === 0 || month === 3) {
@@ -28,5 +22,20 @@ const determineZodiac = (day, month) => {
   } else if (month >= 10) {
     monthsZodiacCutoff = 22;
   }
+
+  if (phase === "full") {
+    month = flipZodiacForFullMoon(month);
+  }
+
   return day < monthsZodiacCutoff ? zodiacList[month] : zodiacList[month + 1];
+};
+
+const flipZodiacForFullMoon = month => {
+  return month < 6 ? month + 6 : month - 6;
+};
+
+Zodiac.propTypes = {
+  day: PropTypes.number,
+  month: PropTypes.number,
+  phase: PropTypes.string,
 };

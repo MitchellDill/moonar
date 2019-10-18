@@ -37,13 +37,25 @@ const findNextSignificantMoon = lunarSchedule => {
   return { phase: "loading", day: 1, month: 1 };
 };
 
-const Moon = ({ lunationNumber, lunarSchedule, loading }) => {
+const Moon = ({ lunationNumber, lunarSchedule, loading, date }) => {
+  let currentPhase = determineMoonPhase(lunationNumber);
+  let zodiacNeeded =
+    currentPhase === "new" || currentPhase === "full" ? true : false;
+
   return (
     <div>
-      <>{loading ? "finding moon..." : determineMoonPhase(lunationNumber)}</>
+      <span>
+        {loading ? "finding moon..." : currentPhase}
+        {zodiacNeeded ? (
+          <Zodiac
+            day={date.getDate()}
+            month={date.getMonth()}
+            phase={currentPhase}
+          />
+        ) : null}
+      </span>
       <>
         <MoonDetail nextMoon={findNextSignificantMoon(lunarSchedule)} />
-        <Zodiac />
       </>
     </div>
   );
@@ -55,4 +67,5 @@ Moon.propTypes = {
   lunationNumber: PropTypes.number.isRequired,
   lunarSchedule: PropTypes.arrayOf(PropTypes.object),
   loading: PropTypes.bool.isRequired,
+  date: PropTypes.instanceOf(Date),
 };

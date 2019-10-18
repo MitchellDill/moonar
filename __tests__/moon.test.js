@@ -12,6 +12,7 @@ describe("Moon component", () => {
           lunationNumber={0.5}
           loading={false}
           lunarSchedule={testLunarSchedule}
+          date={new Date()}
         />
       )
     );
@@ -24,6 +25,7 @@ describe("Moon component", () => {
           lunationNumber={0.5}
           loading={false}
           lunarSchedule={testLunarSchedule}
+          date={new Date()}
         />
       )
     );

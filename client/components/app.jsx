@@ -135,6 +135,7 @@ export default class App extends Component {
           lunationNumber={this.state.lunationNumber}
           lunarSchedule={this.compileUpcomingLunation()}
           loading={this.state.currentlyFetching}
+          date={this.state.date}
         />
         <Mercury
           retrograde={this.state.isMercuryRetrograde}
