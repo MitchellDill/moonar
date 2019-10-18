@@ -3,14 +3,18 @@ import PropTypes from "prop-types";
 import zodiacList from "../zodiacList.js";
 
 const Zodiac = props => {
-  return <div></div>;
+  let date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth();
+
+  return <div>{determineZodiac(day, month)}</div>;
 };
 
 export default Zodiac;
 
 Zodiac.propTypes = {};
 
-const determineZodiacOfMoon = (day, month) => {
+const determineZodiac = (day, month) => {
   // zero indexed day and month
   let monthsZodiacCutoff;
   if (month === 0 || month === 3) {

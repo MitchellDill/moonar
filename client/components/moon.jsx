@@ -1,20 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import MoonDetail from "./moonDetail.jsx";
+import Zodiac from "./zodiac.jsx";
+import moonPhases from "../moonPhaseList.js";
 
 const determineMoonPhase = lunationNumber => {
-  const possibleMoons = [
-    "new",
-    "waxing cresent",
-    "first quarter",
-    "waxing gibbous",
-    "full",
-    "waning gibbous",
-    "last quarter",
-    "waning crescent",
-    "new",
-  ];
-
   let moonSelectorIndex = 0;
   let lunationUpperBoundary = 0.02;
 
@@ -22,7 +12,7 @@ const determineMoonPhase = lunationNumber => {
     lunationUpperBoundary += moonSelectorIndex % 2 === 0 ? 0.22 : 0.03;
     moonSelectorIndex++;
   }
-  return possibleMoons[moonSelectorIndex];
+  return moonPhases[moonSelectorIndex];
 };
 
 const findNextSignificantMoon = lunarSchedule => {
@@ -53,6 +43,7 @@ const Moon = ({ lunationNumber, lunarSchedule, loading }) => {
       <>{loading ? "finding moon..." : determineMoonPhase(lunationNumber)}</>
       <>
         <MoonDetail nextMoon={findNextSignificantMoon(lunarSchedule)} />
+        <Zodiac />
       </>
     </div>
   );
