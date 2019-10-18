@@ -1,4 +1,5 @@
 const zodiacList = [
+  'Capricorn',
   'Aquarius',
   'Pisces',
   'Aries',
