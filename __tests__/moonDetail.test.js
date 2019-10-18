@@ -2,9 +2,9 @@ import React from "react";
 import { shallow, mount } from "enzyme";
 import MoonDetail from "../client/components/moonDetail";
 
-const testNextMoon = { lunation: 0.2, day: 0, month: 0 };
+const testNextMoon = { phase: "full", day: 0, month: 0 };
 
-describe("Date component", () => {
+describe("MoonDetail component", () => {
   test("should shallow render without throwing an error", () => {
     expect(
       shallow(<MoonDetail nextMoon={testNextMoon} nextMoonCountdown={3} />)
