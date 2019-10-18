@@ -1,20 +1,50 @@
 import React from "react";
 import PropTypes from "prop-types";
 import MoonDetail from "./moonDetail.jsx";
+import Zodiac from "./zodiac.jsx";
+import moonPhases from "../moonPhaseList.js";
+
+const Moon = ({ lunationNumber, lunarSchedule, loading, date }) => {
+  const day = date.getDate();
+  const month = date.getMonth();
+  const year = date.getFullYear();
+  const currentPhase = determineMoonPhase(lunationNumber);
+  const zodiacNeeded =
+    currentPhase === "new" || currentPhase === "full" ? true : false;
+  const nextMoon = findNextSignificantMoon(lunarSchedule);
+  const nextMoonCountdown = findDaysTilNextSignificantMoon(
+    day,
+    month,
+    nextMoon.day,
+    nextMoon.month,
+    year
+  );
+
+  return (
+    <div>
+      <span>
+        {loading ? "finding moon..." : currentPhase}
+        {zodiacNeeded ? (
+          <Zodiac day={day} month={month} phase={currentPhase} />
+        ) : null}
+      </span>
+      <>
+        <MoonDetail nextMoon={nextMoon} nextMoonCountdown={nextMoonCountdown} />
+      </>
+    </div>
+  );
+};
+
+export default Moon;
+
+Moon.propTypes = {
+  lunationNumber: PropTypes.number.isRequired,
+  lunarSchedule: PropTypes.arrayOf(PropTypes.object),
+  loading: PropTypes.bool.isRequired,
+  date: PropTypes.instanceOf(Date),
+};
 
 const determineMoonPhase = lunationNumber => {
-  const possibleMoons = [
-    "new",
-    "waxing cresent",
-    "first quarter",
-    "waxing gibbous",
-    "full",
-    "waning gibbous",
-    "last quarter",
-    "waning crescent",
-    "new",
-  ];
-
   let moonSelectorIndex = 0;
   let lunationUpperBoundary = 0.02;
 
@@ -22,7 +52,7 @@ const determineMoonPhase = lunationNumber => {
     lunationUpperBoundary += moonSelectorIndex % 2 === 0 ? 0.22 : 0.03;
     moonSelectorIndex++;
   }
-  return possibleMoons[moonSelectorIndex];
+  return moonPhases[moonSelectorIndex];
 };
 
 const findNextSignificantMoon = lunarSchedule => {
@@ -47,21 +77,29 @@ const findNextSignificantMoon = lunarSchedule => {
   return { phase: "loading", day: 1, month: 1 };
 };
 
-const Moon = ({ lunationNumber, lunarSchedule, loading }) => {
-  return (
-    <div>
-      <>{loading ? "finding moon..." : determineMoonPhase(lunationNumber)}</>
-      <>
-        <MoonDetail nextMoon={findNextSignificantMoon(lunarSchedule)} />
-      </>
-    </div>
-  );
-};
-
-export default Moon;
-
-Moon.propTypes = {
-  lunationNumber: PropTypes.number.isRequired,
-  lunarSchedule: PropTypes.arrayOf(PropTypes.object),
-  loading: PropTypes.bool.isRequired,
+const findDaysTilNextSignificantMoon = (
+  currentDay,
+  currentMonth,
+  nextDay,
+  nextMonth,
+  currentYear
+) => {
+  let daysInMonth;
+  if (currentMonth === 1) {
+    if (currentYear % 4 === 0) {
+      daysInMonth = 28;
+    } else {
+      daysInMonth = 27;
+    }
+  } else if (currentMonth % 2 === 0 && currentMonth < 7) {
+    daysInMonth = 31;
+  } else if (currentMonth % 2 !== 0 && currentMonth > 6) {
+    daysInMonth = 31;
+  } else {
+    daysInMonth = 30;
+  }
+  if (nextMonth > currentMonth || nextMonth - currentMonth === -11) {
+    nextDay += daysInMonth;
+  }
+  return nextDay - currentDay;
 };

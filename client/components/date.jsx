@@ -1,22 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import monthNames from "../monthNameList.js";
 
 const renderDateAsText = (day, month) => {
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
   return day === "undefined" || month === "undefined"
     ? { dayNumber: 32, monthName: "some unknowable time in the future" }
     : { dayNumber: day + 1, monthName: monthNames[month] };
