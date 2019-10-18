@@ -49,8 +49,12 @@ app.get('/api/external/months', async (req, res) => {
   }
 });
 
-initializeDatabases().then(() => {
-  app.listen(PORT, () => {
-    console.log(`moons out goons out on port ${PORT}`);
+initializeDatabases()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`moons out goons out on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log('error initializing database: ', err);
   });
-});
