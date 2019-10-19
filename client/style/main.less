@@ -8,15 +8,29 @@
   src: url("../style/fonts/Amatic-Regular.ttf");
 }
 
+@colorYellowMoon: #fedccc;
+@colorPurpleSpace: #6607ff;
+@colorPinkTwilight: #efc6d1;
+@colorNearBlackSpace: #000030;
+
 body {
   font-family: amatic;
   text-align: center;
   font-size: 2em;
+  background-color: @colorNearBlackSpace;
+  color: @colorYellowMoon;
   h1 {
     font-size: 3em;
-    color: pink;
+    font-weight: 200;
+    color: @colorPinkTwilight;
+    margin: 0;
   }
   .moonPhase {
-    height: 200px;
+    min-height: 250px;
+    max-height: 350px;
+    border: 2px solid @colorYellowMoon;
+    border-radius: 50%;
+    margin-bottom: 14px;
+    // box-shadow: 8px 10px @colorPinkTwilight;
   }
 }

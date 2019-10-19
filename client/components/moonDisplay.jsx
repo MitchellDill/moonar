@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Zodiac from "./zodiac.jsx";
 import styles from "../style/main.less";
-import phaseImg from "../images/crescentMoon.png";
+import phaseImg from "../images/gibbousMoon.png";
 
 const moonDisplay = ({ phase }) => {
   return (

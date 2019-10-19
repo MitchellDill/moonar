@@ -19,18 +19,18 @@ const Moon = ({ lunationNumber, lunarSchedule, loading, date }) => {
   );
 
   return (
-    <div>
-      <span>
+    <>
+      <div>
         {loading ? (
           "finding moon..."
         ) : (
           <MoonDisplay phase={currentPhase} day={day} month={month} />
         )}
-      </span>
+      </div>
       <>
         <MoonDetail nextMoon={nextMoon} nextMoonCountdown={nextMoonCountdown} />
       </>
-    </div>
+    </>
   );
 };
 
