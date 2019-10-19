@@ -7,7 +7,7 @@ export default class App extends Component {
     super(props);
     this.state = {
       date: new Date(),
-      lunationNumber: 0,
+      lunationNumber: 2,
       isMercuryRetrograde: false,
       currentMonth: [],
       nextMonth: [],
