@@ -23,7 +23,7 @@ const Moon = ({ lunationNumber, lunarSchedule, loading, date }) => {
   return (
     <div>
       <span>
-        {loading ? "finding moon..." : currentPhase}
+        {loading ? "finding moon..." : `${currentPhase} `}
         {zodiacNeeded ? (
           <Zodiac day={day} month={month} phase={currentPhase} />
         ) : null}
