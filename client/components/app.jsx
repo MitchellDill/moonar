@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Moon from "./moon.jsx";
 import Mercury from "./mercury.jsx";
+import Modal from "./modal.jsx";
 
 export default class App extends Component {
   constructor(props) {
@@ -12,6 +13,7 @@ export default class App extends Component {
       currentMonth: [],
       nextMonth: [],
       currentlyFetching: false,
+      modalOpen: false,
     };
   }
 
@@ -141,6 +143,7 @@ export default class App extends Component {
           retrograde={this.state.isMercuryRetrograde}
           loading={this.state.currentlyFetching}
         />
+        <Modal />
       </div>
     );
   }
