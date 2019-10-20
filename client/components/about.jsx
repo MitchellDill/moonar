@@ -34,7 +34,11 @@ const About = ({ hideModal }) => {
         {`\u2122`}. Whenever a month's data isn't found, e.g. we roll over to
         November and we don't yet have December's info, moonar makes a full
         month's worth of external API calls to Dark Sky, then stores that info
-        as a new document in the database.
+        as a new document in the database for future reference. Ideally, because
+        it works a month ahead, we'll never be waiting on those calls when we
+        visit the site. If literally nobody visits for several months, though,
+        we might have to endure a five or six second waiting period as we ring
+        up the fine folks at Dark Sky.
       </p>
       <h3>what if i have questions beyond the scope of this about page?</h3>
       <p>well you could email me i guess.</p>
@@ -53,4 +57,6 @@ const About = ({ hideModal }) => {
 
 export default About;
 
-About.propTypes = {};
+About.propTypes = {
+  hideModal: PropTypes.func.isRequired,
+};
