@@ -1,0 +1,46 @@
+@font-face {
+  font-family: amatic;
+  src: url("../style/fonts/Amatic-Regular.ttf");
+}
+
+@colorYellowMoon: #fedccc;
+@colorPurpleSpace: #6607ff;
+@colorPinkTwilight: #efc6d1;
+@colorNearBlackSpace: #000030;
+
+body {
+  font-family: amatic;
+  text-align: center;
+  font-size: 2em;
+  background-color: @colorNearBlackSpace;
+  color: @colorYellowMoon;
+  .moonPhase {
+    .header {
+      color: @colorPinkTwilight;
+      h1 {
+        font-size: 3em;
+        font-weight: 200;
+        .headerTextVerticalSpace();
+      }
+      h2 {
+        font-size: 2.4em;
+        font-weight: 100;
+        .headerTextVerticalSpace();
+      }
+    }
+    img {
+      min-height: 250px;
+      max-height: 350px;
+      border: 2px solid @colorYellowMoon;
+      border-radius: 50%;
+      margin-top: 12px;
+      margin-bottom: 14px;
+      // box-shadow: 8px 10px @colorPinkTwilight;
+    }
+  }
+}
+
+.headerTextVerticalSpace {
+  margin: 0;
+  line-height: 0.9em;
+}
