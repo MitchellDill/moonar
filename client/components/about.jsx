@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const About = props => {
+const About = ({ hideModal }) => {
   return (
     <>
       <h2>about moonar</h2>
@@ -19,8 +19,8 @@ const About = props => {
       <p>
         Everything was designed, coded, and drawn by me, Mitchell Dill. You can
         find me on <a href="https://github.com/mitchelldill">Github</a> or{" "}
-        <a href="https://twitter.com/mitchelldill">Twitter</a>, where I
-        sometimes am, I suppose.
+        <a href="https://twitter.com/mitchelldill">Twitter</a>, where I have
+        been known to sometimes be.
       </p>
       <h3>how exactly has said maniac done such a thing?</h3>
       <p>
@@ -36,6 +36,17 @@ const About = props => {
         month's worth of external API calls to Dark Sky, then stores that info
         as a new document in the database.
       </p>
+      <h3>what if i have questions beyond the scope of this about page?</h3>
+      <p>well you could email me i guess.</p>
+      <h3>you guess?</h3>
+      <p>no, please, i'd love to hear from you.</p>
+      <h3
+        onClick={e => {
+          hideModal(e);
+        }}
+      >
+        i would like to close this window, please.
+      </h3>
     </>
   );
 };

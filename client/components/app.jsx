@@ -15,6 +15,7 @@ export default class App extends Component {
       currentlyFetching: false,
       showModal: false,
     };
+    this.hideModal = this.hideModal.bind(this);
   }
 
   //months are all 0-index
@@ -160,7 +161,7 @@ export default class App extends Component {
         {this.state.showModal ? null : (
           <p onClick={e => this.showModal(e)}>about</p>
         )}
-        {this.state.showModal ? <Modal /> : null}
+        {this.state.showModal ? <Modal hideModal={this.hideModal} /> : null}
       </>
     );
   }
