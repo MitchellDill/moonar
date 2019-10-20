@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Moon from "./moon.jsx";
 import Mercury from "./mercury.jsx";
+import Modal from "./modal.jsx";
+import styles from "../style/main.less";
 
 export default class App extends Component {
   constructor(props) {
@@ -12,7 +14,9 @@ export default class App extends Component {
       currentMonth: [],
       nextMonth: [],
       currentlyFetching: false,
+      showModal: false,
     };
+    this.hideModal = this.hideModal.bind(this);
   }
 
   //months are all 0-index
@@ -124,24 +128,45 @@ export default class App extends Component {
     return nextDays;
   }
 
+  showModal(e) {
+    this.setState({
+      showModal: true,
+    });
+  }
+
+  hideModal(e) {
+    this.setState({
+      showModal: false,
+    });
+  }
+
   componentDidMount() {
     this.getPlanetarySchedule();
   }
 
   render() {
     return (
-      <div>
-        <Moon
-          lunationNumber={this.state.lunationNumber}
-          lunarSchedule={this.compileUpcomingLunation()}
-          loading={this.state.currentlyFetching}
-          date={this.state.date}
-        />
-        <Mercury
-          retrograde={this.state.isMercuryRetrograde}
-          loading={this.state.currentlyFetching}
-        />
-      </div>
+      <>
+        <div onClick={e => this.hideModal(e)}>
+          <Moon
+            lunationNumber={this.state.lunationNumber}
+            lunarSchedule={this.compileUpcomingLunation()}
+            loading={this.state.currentlyFetching}
+            date={this.state.date}
+          />
+          <Mercury
+            retrograde={this.state.isMercuryRetrograde}
+            loading={this.state.currentlyFetching}
+          />
+        </div>
+        <h4
+          onClick={e => this.showModal(e)}
+          className={styles["clickableText"]}
+        >
+          about
+        </h4>
+        {this.state.showModal ? <Modal hideModal={this.hideModal} /> : null}
+      </>
     );
   }
 }

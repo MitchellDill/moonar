@@ -7,6 +7,8 @@
 @colorPurpleSpace: #6607ff;
 @colorPinkTwilight: #efc6d1;
 @colorNearBlackSpace: #000030;
+@colorVibrantMagenta: #ff3079;
+@colorPaleMagenta: #ff96b8;
 
 body {
   font-family: amatic;
@@ -14,19 +16,38 @@ body {
   font-size: 2em;
   background-color: @colorNearBlackSpace;
   color: @colorYellowMoon;
+  z-index: 0;
+  h1 {
+    font-size: 3em;
+    font-weight: 200;
+    .removeVerticalSpace();
+  }
+  h2 {
+    font-size: 2.4em;
+    font-weight: 100;
+    .removeVerticalSpace();
+  }
+  h3 {
+    font-size: 1.3em;
+    font-weight: 100;
+    .removeVerticalSpace();
+  }
+  h4 {
+    font-size: 0.7em;
+    color: @colorPaleMagenta;
+    margin-top: 4px;
+    margin-bottom: 6px;
+  }
+  p {
+    font-size: 0.7em;
+  }
+  a {
+    color: @colorPurpleSpace;
+    text-decoration: none;
+  }
   .moonPhase {
     .header {
       color: @colorPinkTwilight;
-      h1 {
-        font-size: 3em;
-        font-weight: 200;
-        .headerTextVerticalSpace();
-      }
-      h2 {
-        font-size: 2.4em;
-        font-weight: 100;
-        .headerTextVerticalSpace();
-      }
     }
     img {
       min-height: 250px;
@@ -38,9 +59,63 @@ body {
       // box-shadow: 8px 10px @colorPinkTwilight;
     }
   }
+  .modal {
+    left: 20%;
+    top: 6%;
+    position: fixed;
+    z-index: 1;
+    overflow: auto;
+    background-color: @colorNearBlackSpace;
+    opacity: 0.9;
+    width: 60%;
+    height: 80%;
+    border: 1px solid @colorYellowMoon;
+    border-right-width: 2px;
+    border-bottom-width: 3px;
+    box-shadow: 18px 20px @colorPurpleSpace;
+    border-radius: 60% 30%;
+    padding: 60px;
+    padding-bottom: 120px;
+    animation-name: bounceIn;
+    animation-duration: 500ms;
+    h2 {
+      margin-bottom: 42px;
+      font-weight: 200;
+    }
+    h3 {
+      color: @colorPaleMagenta;
+      font-weight: 400;
+    }
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+    // &::-webkit-scrollbar-thumb {
+    //   background: @colorPaleMagenta;
+    //   border-radius: 50%;
+    // }
+  }
 }
 
-.headerTextVerticalSpace {
+@keyframes bounceIn {
+  0% {
+    left: -100%;
+  }
+  60% {
+    left: 32%;
+  }
+  85% {
+    left: 17%;
+  }
+}
+
+.clickableText {
+  cursor: pointer;
+  &:hover {
+    color: @colorVibrantMagenta;
+  }
+}
+
+.removeVerticalSpace {
   margin: 0;
   line-height: 0.9em;
 }
