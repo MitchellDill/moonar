@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import MoonDetail from "./moonDetail.jsx";
-import Zodiac from "./zodiac.jsx";
+import MoonDisplay from "./moonDisplay.jsx";
 import moonPhases from "../moonPhaseList.js";
 
 const Moon = ({ lunationNumber, lunarSchedule, loading, date }) => {
@@ -9,8 +9,6 @@ const Moon = ({ lunationNumber, lunarSchedule, loading, date }) => {
   const month = date.getMonth();
   const year = date.getFullYear();
   const currentPhase = determineMoonPhase(lunationNumber);
-  const zodiacNeeded =
-    currentPhase === "new" || currentPhase === "full" ? true : false;
   const nextMoon = findNextSignificantMoon(lunarSchedule);
   const nextMoonCountdown = findDaysTilNextSignificantMoon(
     day,
@@ -21,17 +19,14 @@ const Moon = ({ lunationNumber, lunarSchedule, loading, date }) => {
   );
 
   return (
-    <div>
-      <span>
-        {loading ? "finding moon..." : `${currentPhase} `}
-        {zodiacNeeded ? (
-          <Zodiac day={day} month={month} phase={currentPhase} />
-        ) : null}
-      </span>
-      <>
-        <MoonDetail nextMoon={nextMoon} nextMoonCountdown={nextMoonCountdown} />
-      </>
-    </div>
+    <>
+      {loading ? (
+        "finding moon..."
+      ) : (
+        <MoonDisplay phase={currentPhase} day={day} month={month} />
+      )}
+      <MoonDetail nextMoon={nextMoon} nextMoonCountdown={nextMoonCountdown} />
+    </>
   );
 };
 
