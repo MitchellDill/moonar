@@ -20,16 +20,12 @@ const Moon = ({ lunationNumber, lunarSchedule, loading, date }) => {
 
   return (
     <>
-      <div>
-        {loading ? (
-          "finding moon..."
-        ) : (
-          <MoonDisplay phase={currentPhase} day={day} month={month} />
-        )}
-      </div>
-      <>
-        <MoonDetail nextMoon={nextMoon} nextMoonCountdown={nextMoonCountdown} />
-      </>
+      {loading ? (
+        "finding moon..."
+      ) : (
+        <MoonDisplay phase={currentPhase} day={day} month={month} />
+      )}
+      <MoonDetail nextMoon={nextMoon} nextMoonCountdown={nextMoonCountdown} />
     </>
   );
 };

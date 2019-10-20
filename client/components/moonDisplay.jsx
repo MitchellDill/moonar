@@ -6,9 +6,9 @@ import phaseImg from "../images/gibbousMoon.png";
 
 const moonDisplay = ({ phase }) => {
   return (
-    <div>
+    <div className={styles["moonPhase"]}>
       <h1>{`${phase}`}</h1>
-      <img className={styles["moonPhase"]} src={phaseImg} />
+      <img src={phaseImg} />
       {phase === "new" || phase === "full" ? <Zodiac {...props} /> : null}
     </div>
   );
