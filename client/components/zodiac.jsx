@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import zodiacSigns from "../zodiacSignList.js";
 
 const Zodiac = ({ day, month, phase }) => {
-  return <>in {determineZodiacOfMoon(day, month, phase)}</>;
+  return <>{`in ${determineZodiacOfMoon(day, month, phase)}`}</>;
 };
 
 export default Zodiac;

@@ -4,12 +4,19 @@ import Zodiac from "./zodiac.jsx";
 import MoonPhaseImage from "./moonPhaseImage.jsx";
 import styles from "../style/main.less";
 
-const moonDisplay = ({ phase }) => {
+const moonDisplay = props => {
+  const { phase } = props;
   return (
     <div className={styles["moonPhase"]}>
-      <h1>{`${phase}`}</h1>
+      <span className={styles["header"]}>
+        <h1>{`${phase}`}</h1>
+        {phase === "new" || phase === "full" ? (
+          <h2>
+            <Zodiac {...props} />
+          </h2>
+        ) : null}
+      </span>
       <MoonPhaseImage phase={phase} />
-      {phase === "new" || phase === "full" ? <Zodiac {...props} /> : null}
     </div>
   );
 };

@@ -20,19 +20,32 @@ body {
   background-color: @colorNearBlackSpace;
   color: @colorYellowMoon;
   .moonPhase {
-    h1 {
-      font-size: 3em;
-      font-weight: 200;
+    .header {
       color: @colorPinkTwilight;
-      margin: 0;
+      h1 {
+        font-size: 3em;
+        font-weight: 200;
+        .headerTextVerticalSpace();
+      }
+      h2 {
+        font-size: 2.4em;
+        font-weight: 100;
+        .headerTextVerticalSpace();
+      }
     }
     img {
       min-height: 250px;
       max-height: 350px;
       border: 2px solid @colorYellowMoon;
       border-radius: 50%;
+      margin-top: 12px;
       margin-bottom: 14px;
       // box-shadow: 8px 10px @colorPinkTwilight;
     }
   }
+}
+
+.headerTextVerticalSpace {
+  margin: 0;
+  line-height: 0.9em;
 }
