@@ -13,7 +13,7 @@ export default class App extends Component {
       currentMonth: [],
       nextMonth: [],
       currentlyFetching: false,
-      modalOpen: false,
+      showModal: false,
     };
   }
 
@@ -126,25 +126,41 @@ export default class App extends Component {
     return nextDays;
   }
 
+  showModal(e) {
+    this.setState({
+      showModal: true,
+    });
+  }
+
+  hideModal(e) {
+    this.setState({
+      showModal: false,
+    });
+  }
+
   componentDidMount() {
     this.getPlanetarySchedule();
   }
 
   render() {
     return (
-      <div>
-        <Moon
-          lunationNumber={this.state.lunationNumber}
-          lunarSchedule={this.compileUpcomingLunation()}
-          loading={this.state.currentlyFetching}
-          date={this.state.date}
-        />
-        <Mercury
-          retrograde={this.state.isMercuryRetrograde}
-          loading={this.state.currentlyFetching}
-        />
-        <Modal />
-      </div>
+      <>
+        <div onClick={e => this.hideModal(e)}>
+          <Moon
+            lunationNumber={this.state.lunationNumber}
+            lunarSchedule={this.compileUpcomingLunation()}
+            loading={this.state.currentlyFetching}
+            date={this.state.date}
+            onClick={e => this.hideModal(e)}
+          />
+          <Mercury
+            retrograde={this.state.isMercuryRetrograde}
+            loading={this.state.currentlyFetching}
+          />
+        </div>
+        <h4 onClick={e => this.showModal(e)}>about</h4>
+        {this.state.showModal ? <Modal /> : null}
+      </>
     );
   }
 }
