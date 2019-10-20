@@ -4,7 +4,7 @@ import styles from "../style/main.less";
 
 const Modal = props => {
   return (
-    <div>
+    <div className={styles["modal"]}>
       <About {...props} />
     </div>
   );

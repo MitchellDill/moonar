@@ -7,6 +7,8 @@
 @colorPurpleSpace: #6607ff;
 @colorPinkTwilight: #efc6d1;
 @colorNearBlackSpace: #000030;
+@colorVibrantMagenta: #ff3079;
+@colorPaleMagenta: #ff96b8;
 
 body {
   font-family: amatic;
@@ -14,19 +16,35 @@ body {
   font-size: 2em;
   background-color: @colorNearBlackSpace;
   color: @colorYellowMoon;
+  h1 {
+    font-size: 3em;
+    font-weight: 200;
+    .removeVerticalSpace();
+  }
+  h2 {
+    font-size: 2.4em;
+    font-weight: 100;
+    .removeVerticalSpace();
+  }
+  h3 {
+    font-size: 1.3em;
+    font-weight: 100;
+    .removeVerticalSpace();
+  }
+  h4 {
+    font-size: 0.8em;
+    font-weight: 200;
+  }
+  p {
+    font-size: 0.7em;
+  }
+  a {
+    color: @colorPurpleSpace;
+    text-decoration: none;
+  }
   .moonPhase {
     .header {
       color: @colorPinkTwilight;
-      h1 {
-        font-size: 3em;
-        font-weight: 200;
-        .headerTextVerticalSpace();
-      }
-      h2 {
-        font-size: 2.4em;
-        font-weight: 100;
-        .headerTextVerticalSpace();
-      }
     }
     img {
       min-height: 250px;
@@ -38,9 +56,18 @@ body {
       // box-shadow: 8px 10px @colorPinkTwilight;
     }
   }
+  .modal {
+    h2 {
+      margin-bottom: 48px;
+    }
+    h3 {
+      color: @colorPaleMagenta;
+      font-weight: 300;
+    }
+  }
 }
 
-.headerTextVerticalSpace {
+.removeVerticalSpace {
   margin: 0;
   line-height: 0.9em;
 }
