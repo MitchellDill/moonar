@@ -8,7 +8,7 @@ const Mercury = ({ retrograde, loading }) => {
         ? "finding mercury..."
         : retrograde
         ? "mercury retrograde! hope it doesn't break the site"
-        : "mercury NOT retrograde. phew"}
+        : null}
     </div>
   );
 };

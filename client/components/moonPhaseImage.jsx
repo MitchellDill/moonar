@@ -10,7 +10,7 @@ import fullMoon from "../images/fullMoon.png";
 const moonPhaseImage = ({ phase }) => {
   return (
     <>
-      <img src={selectMoonPhaseImage(phase)} alt={phase} />
+      <img src={selectMoonPhaseImage(phase)} alt={`${phase} drawing`} />
     </>
   );
 };

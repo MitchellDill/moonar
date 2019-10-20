@@ -1,22 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Zodiac from "./zodiac.jsx";
+import MoonPhaseText from "./moonPhaseText.jsx";
 import MoonPhaseImage from "./moonPhaseImage.jsx";
 import styles from "../style/main.less";
 
 const moonDisplay = props => {
-  const { phase } = props;
   return (
     <div className={styles["moonPhase"]}>
       <span className={styles["header"]}>
-        <h1>{`${phase}`}</h1>
-        {phase === "new" || phase === "full" ? (
-          <h2>
-            <Zodiac {...props} />
-          </h2>
-        ) : null}
+        <MoonPhaseText {...props} />
       </span>
-      <MoonPhaseImage phase={phase} />
+      <MoonPhaseImage phase={props.phase} />
     </div>
   );
 };
@@ -27,8 +21,4 @@ moonDisplay.propTypes = {
   day: PropTypes.number,
   month: PropTypes.number,
   phase: PropTypes.string,
-};
-
-moonDisplay.defaultProps = {
-  phase: "looking for moon...",
 };
