@@ -159,7 +159,7 @@ export default class App extends Component {
           />
         </div>
         {this.state.showModal ? null : (
-          <p onClick={e => this.showModal(e)}>about</p>
+          <h4 onClick={e => this.showModal(e)}>about</h4>
         )}
         {this.state.showModal ? <Modal hideModal={this.hideModal} /> : null}
       </>
