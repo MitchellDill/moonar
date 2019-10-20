@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Moon from "./moon.jsx";
 import Mercury from "./mercury.jsx";
 import Modal from "./modal.jsx";
+import styles from "../style/main.less";
 
 export default class App extends Component {
   constructor(props) {
@@ -158,9 +159,12 @@ export default class App extends Component {
             loading={this.state.currentlyFetching}
           />
         </div>
-        {this.state.showModal ? null : (
-          <h4 onClick={e => this.showModal(e)}>about</h4>
-        )}
+        <h4
+          onClick={e => this.showModal(e)}
+          className={styles["clickableText"]}
+        >
+          about
+        </h4>
         {this.state.showModal ? <Modal hideModal={this.hideModal} /> : null}
       </>
     );
