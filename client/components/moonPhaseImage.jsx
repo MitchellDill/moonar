@@ -10,7 +10,7 @@ import fullMoon from "../images/fullMoon.png";
 const moonPhaseImage = ({ phase }) => {
   return (
     <>
-      <img src={translateMoonPhaseToFilename(phase)} />
+      <img src={selectMoonPhaseImage(phase)} alt={phase} />
     </>
   );
 };
@@ -23,7 +23,7 @@ moonPhaseImage.propTypes = {
 
 moonPhaseImage.defaultProps = {};
 
-const translateMoonPhaseToFilename = phase => {
+const selectMoonPhaseImage = phase => {
   const imageArr = [
     newMoon,
     crescentMoon,
