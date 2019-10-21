@@ -1,7 +1,7 @@
 {
   "name": "moonar",
   "version": "1.0.0",
-  "description": "a simple lunar calendar with a little extra celestial spice",
+  "description": "tells you what kinda moon we got up there!",
   "main": "index.jsx",
   "scripts": {
     "start": "node ./server/index.js",
@@ -13,7 +13,6 @@
   "author": "mitchell dill",
   "license": "ISC",
   "dependencies": {
-    "date-fns": "^2.2.1",
     "express": "^4.17.1",
     "mongodb": "^3.3.2",
     "node-fetch": "^2.6.0",
