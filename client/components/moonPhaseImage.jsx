@@ -36,6 +36,7 @@ const selectMoonPhaseImage = phase => {
     waningGibbousMoon,
     lastQuarterMoon,
     waningCrescentMoon,
+    newMoon,
   ];
   const imageIndex = moonPhases.indexOf(phase);
   return imageArr[imageIndex];
