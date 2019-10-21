@@ -26,7 +26,7 @@ describe("App component", () => {
     expect(mount(<App />));
   });
 
-  test("should render two subcomponents", () => {
+  test("should render one subcomponent when mercury is not retrograde", () => {
     const wrapper = shallow(<App />);
     expect(wrapper.find("div").children()).toHaveLength(2);
   });
