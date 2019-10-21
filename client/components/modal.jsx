@@ -4,11 +4,9 @@ import styles from "../style/main.less";
 
 const Modal = props => {
   let classes = styles["modal"];
-  if (props.exitModalAnimating) {
-    classes += ` ${styles["modalExit"]}`;
-  } else {
-    classes += ` ${styles["modalEntry"]}`;
-  }
+  props.exitModalAnimating
+    ? (classes += ` ${styles["modalExit"]}`)
+    : (classes += ` ${styles["modalEntry"]}`);
   return (
     <div className={classes}>
       <About {...props} />

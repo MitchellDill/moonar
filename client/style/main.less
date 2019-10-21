@@ -6,15 +6,22 @@
 @colorYellowMoon: #fedccc;
 @colorPurpleSpace: #6607ff;
 @colorPinkTwilight: #efc6d1;
-@colorNearBlackSpace: #000030;
+@colorNearBlackSpace: #000034;
 @colorVibrantMagenta: #ff3079;
 @colorPaleMagenta: #ff96b8;
+@colorSoftBlack: #000026;
 
 body {
   font-family: amatic;
   text-align: center;
   font-size: 2em;
-  background-color: @colorNearBlackSpace;
+  background-image: linear-gradient(
+    to right,
+    @colorSoftBlack,
+    @colorNearBlackSpace,
+    @colorSoftBlack
+  );
+  // background-color: @colorNearBlackSpace;
   color: @colorYellowMoon;
   z-index: 0;
   h1 {
