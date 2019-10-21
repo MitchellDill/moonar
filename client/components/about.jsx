@@ -56,7 +56,7 @@ const About = ({ exitModal }) => {
       <h3>you guess?</h3>
       <p>no, please, i'd love to hear from you.</p>
       <h3>Uh huh. So what's with this weird modal?</h3>
-      <p>Sometimes you just do a thing.</p>
+      <p>Awesome, right? It looks like the moon!</p>
       <h3
         onClick={e => {
           exitModal(e);
