@@ -1,4 +1,7 @@
-const whitelist = ['http://localhost:3000', 'http://localhost:8000'];
+const whitelist = [
+  'http://localhost:3000',
+  'http://moonar.us-east-2.elasticbeanstalk.com',
+];
 
 const corsOptions = {
   credentials: true,
