@@ -2,9 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import moonPhases from "../moonPhaseList.js";
 import newMoon from "../images/newMoon.png";
-import crescentMoon from "../images/crescentMoon.png";
-import quarterMoon from "../images/quarterMoon.png";
-import gibbousMoon from "../images/gibbousMoon.png";
+import waxingCrescentMoon from "../images/crescentMoonWaxing.png";
+import waningCrescentMoon from "../images/crescentMoonWaning.png";
+import firstQuarterMoon from "../images/quarterMoonFirst.png";
+import lastQuarterMoon from "../images/quarterMoonLast.png";
+import waxingGibbousMoon from "../images/gibbousMoonWaxing.png";
+import waningGibbousMoon from "../images/gibbousMoonWaning.png";
 import fullMoon from "../images/fullMoon.png";
 
 const moonPhaseImage = ({ phase }) => {
@@ -26,13 +29,13 @@ moonPhaseImage.defaultProps = {};
 const selectMoonPhaseImage = phase => {
   const imageArr = [
     newMoon,
-    crescentMoon,
-    quarterMoon,
-    gibbousMoon,
+    waxingCrescentMoon,
+    firstQuarterMoon,
+    waxingGibbousMoon,
     fullMoon,
-    gibbousMoon,
-    quarterMoon,
-    crescentMoon,
+    waningGibbousMoon,
+    lastQuarterMoon,
+    waningCrescentMoon,
   ];
   const imageIndex = moonPhases.indexOf(phase);
   return imageArr[imageIndex];
