@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "../style/main.less";
 
-const About = ({ hideModal }) => {
+const About = ({ exitModal }) => {
   return (
     <>
       <h2>about moonar</h2>
@@ -56,13 +56,16 @@ const About = ({ hideModal }) => {
       <h3>you guess?</h3>
       <p>no, please, i'd love to hear from you.</p>
       <h3>
-        This to a person who has been nothing but nice about this weird modal
-        you're making me use.
+        Uh huh. This to a person who has been nothing but nice about this
+        weirdly-shaped modal.
       </h3>
-      <p>That's fair; it's a bit much. But sometimes you just do a thing.</p>
+      <p>
+        That's fair; I'll admit it's a bit much. But sometimes you just do a
+        thing.
+      </p>
       <h3
         onClick={e => {
-          hideModal(e);
+          exitModal(e);
         }}
         title="click here to close the about page"
         className={styles["clickableText"]}
@@ -76,5 +79,6 @@ const About = ({ hideModal }) => {
 export default About;
 
 About.propTypes = {
-  hideModal: PropTypes.func.isRequired,
+  exitModal: PropTypes.func.isRequired,
+  exitModalAnimating: PropTypes.bool,
 };
