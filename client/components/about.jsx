@@ -55,14 +55,8 @@ const About = ({ exitModal }) => {
       </p>
       <h3>you guess?</h3>
       <p>no, please, i'd love to hear from you.</p>
-      <h3>
-        Uh huh. This to a person who has been nothing but nice about this
-        weirdly-shaped modal.
-      </h3>
-      <p>
-        That's fair; I'll admit it's a bit much. But sometimes you just do a
-        thing.
-      </p>
+      <h3>Uh huh. So what's with this weird modal?</h3>
+      <p>Sometimes you just do a thing.</p>
       <h3
         onClick={e => {
           exitModal(e);
@@ -70,7 +64,7 @@ const About = ({ exitModal }) => {
         title="click here to close the about page"
         className={styles["clickableText"]}
       >
-        i would like to close this window, please.
+        i would like to close it, please.
       </h3>
     </>
   );
