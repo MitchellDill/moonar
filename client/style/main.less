@@ -21,7 +21,6 @@ body {
     @colorNearBlackSpace,
     @colorSoftBlack
   );
-  // background-color: @colorNearBlackSpace;
   color: @colorYellowMoon;
   z-index: 0;
   h1 {
@@ -63,7 +62,6 @@ body {
       border-radius: 50%;
       margin-top: 12px;
       margin-bottom: 14px;
-      // box-shadow: 8px 10px @colorPinkTwilight;
     }
   }
   .modal {
@@ -105,6 +103,46 @@ body {
     &.modalExit {
       animation-name: bounceOut;
       animation-duration: 600ms;
+    }
+  }
+}
+
+@media screen {
+  body {
+    @media (max-width: 480px) {
+      .moonPhase {
+        img {
+          min-width: 80%;
+          max-width: 80%;
+        }
+      }
+    }
+    @media (max-width: 780px) {
+      .modal {
+        left: 12%;
+        width: 55%;
+      }
+    }
+    @media (min-width: 480px) and (max-width: 1020px) {
+      .modal {
+        h2 {
+          margin-left: 20%;
+          margin-right: 20%;
+          padding-top: 10%;
+        }
+      }
+    }
+    @media (min-width: 1020px) {
+      .moonPhase {
+        img {
+          max-height: 420px;
+        }
+      }
+      .modal {
+        h2 {
+          padding-top: 5%;
+        }
+      }
     }
   }
 }
