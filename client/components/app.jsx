@@ -15,8 +15,9 @@ export default class App extends Component {
       nextMonth: [],
       currentlyFetching: false,
       showModal: false,
+      exitModalAnimating: false,
     };
-    this.hideModal = this.hideModal.bind(this);
+    this.exitModal = this.exitModal.bind(this);
   }
 
   //months are all 0-index
@@ -134,10 +135,22 @@ export default class App extends Component {
     });
   }
 
+  exitModal(e) {
+    this.setState(
+      {
+        exitModalAnimating: true,
+      },
+      this.hideModal()
+    );
+  }
+
   hideModal(e) {
-    this.setState({
-      showModal: false,
-    });
+    setTimeout(() => {
+      this.setState({
+        showModal: false,
+        exitModalAnimating: false,
+      });
+    }, 500);
   }
 
   componentDidMount() {
@@ -147,17 +160,19 @@ export default class App extends Component {
   render() {
     return (
       <>
-        <div onClick={e => this.hideModal(e)}>
+        <div onClick={e => this.exitModal(e)}>
           <Moon
             lunationNumber={this.state.lunationNumber}
             lunarSchedule={this.compileUpcomingLunation()}
             loading={this.state.currentlyFetching}
             date={this.state.date}
           />
-          <Mercury
-            retrograde={this.state.isMercuryRetrograde}
-            loading={this.state.currentlyFetching}
-          />
+          {this.state.isMercuryRetrograde || this.state.currentlyFetching ? (
+            <Mercury
+              retrograde={this.state.isMercuryRetrograde}
+              loading={this.state.currentlyFetching}
+            />
+          ) : null}
         </div>
         <h4
           onClick={e => this.showModal(e)}
@@ -165,7 +180,12 @@ export default class App extends Component {
         >
           about
         </h4>
-        {this.state.showModal ? <Modal hideModal={this.hideModal} /> : null}
+        {this.state.showModal ? (
+          <Modal
+            exitModal={this.exitModal}
+            exitModalAnimating={this.state.exitModalAnimating}
+          />
+        ) : null}
       </>
     );
   }
