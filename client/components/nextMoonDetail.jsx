@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Date from "./date.jsx";
 import Zodiac from "./zodiac.jsx";
 
-const MoonDetail = ({ nextMoon, nextMoonCountdown }) => {
+const NextMoonDetail = ({ nextMoon, nextMoonCountdown }) => {
   const { phase, day, month } = nextMoon;
   const zeroIndexDate = { zeroDay: day, zeroMonth: month };
 
@@ -23,9 +23,9 @@ const MoonDetail = ({ nextMoon, nextMoonCountdown }) => {
   );
 };
 
-export default MoonDetail;
+export default NextMoonDetail;
 
-MoonDetail.propTypes = {
+NextMoonDetail.propTypes = {
   nextMoon: PropTypes.object,
   nextMoonCountdown: PropTypes.number,
 };

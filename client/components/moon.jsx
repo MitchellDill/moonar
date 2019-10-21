@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import MoonDetail from "./moonDetail.jsx";
+import NextMoonDetail from "./nextMoonDetail.jsx";
 import MoonDisplay from "./moonDisplay.jsx";
 import moonPhases from "../moonPhaseList.js";
 
@@ -25,7 +25,10 @@ const Moon = ({ lunationNumber, lunarSchedule, loading, date }) => {
       ) : (
         <MoonDisplay phase={currentPhase} day={day} month={month} />
       )}
-      <MoonDetail nextMoon={nextMoon} nextMoonCountdown={nextMoonCountdown} />
+      <NextMoonDetail
+        nextMoon={nextMoon}
+        nextMoonCountdown={nextMoonCountdown}
+      />
     </>
   );
 };
