@@ -159,8 +159,6 @@ export default class App extends Component {
     this.getPlanetarySchedule();
   }
 
-  //months are all 0-index
-
   render() {
     return (
       <>
