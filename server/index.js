@@ -1,5 +1,7 @@
 /* eslint-disable no-console */
 const express = require('express');
+const cors = require('cors');
+const { corsOptions } = require('./corsWhitelist');
 const { initializeDatabases } = require('../database/mongoDB');
 const { buildCosmicMonth } = require('./apiHelpers');
 const { getCosmicMonth, postCosmicMonth } = require('../database/mongoQueries');
@@ -9,6 +11,7 @@ const PORT = 3000;
 const app = express();
 
 app.use(express.json());
+app.use(cors(corsOptions));
 
 app.use(express.static('public'));
 
