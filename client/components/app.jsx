@@ -22,11 +22,13 @@ export default class App extends Component {
 
   //months are all 0-index
 
+  //NOTE TO DEV: getPlanetary needs to be set up to handle the december - january jump
+
   async getPlanetarySchedule(month = this.state.date.getMonth()) {
     const isCurrentMonth = month === new Date().getMonth();
     try {
       const response = await fetch(
-        `http://localhost:3000/api/months?month=${month}`
+        `http://moonar.us-east-2.elasticbeanstalk.com/api/months?month=${month}`
       );
       const jsonResponse = await response.json();
       const [planetarySchedule] = jsonResponse.planetarySchedule;
@@ -73,7 +75,7 @@ export default class App extends Component {
 
   async postPlanetarySchedule(cosmicData, isCurrentMonth) {
     try {
-      await fetch(`http://localhost:3000/api/months`, {
+      await fetch(`http://moonar.us-east-2.elasticbeanstalk.com/api/months`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(cosmicData),
@@ -89,7 +91,7 @@ export default class App extends Component {
   async callMoonAPI(month) {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/external/months?month=${month}`
+        `http://moonar.us-east-2.elasticbeanstalk.com/api/external/months?month=${month}`
       );
       const jsonResponse = await response.json();
       // console.log("response: ", jsonResponse);
