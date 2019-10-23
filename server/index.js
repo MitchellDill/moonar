@@ -17,9 +17,9 @@ app.use(express.static('public'));
 
 app.get('/api/months', async (req, res) => {
   let planetarySchedule;
-  const { month } = req.query;
+  const { month, year } = req.query;
   try {
-    planetarySchedule = await getCosmicMonth(month);
+    planetarySchedule = await getCosmicMonth(month, year);
   } catch (e) {
     console.error(e);
   } finally {
@@ -41,10 +41,10 @@ app.post('/api/months', async (req, res) => {
 });
 
 app.get('/api/external/months', async (req, res) => {
-  const { month } = req.query;
+  const { month, year } = req.query;
   let cosmicMonth;
   try {
-    cosmicMonth = await buildCosmicMonth(month);
+    cosmicMonth = await buildCosmicMonth(month, year);
   } catch (e) {
     console.error(e);
   } finally {
