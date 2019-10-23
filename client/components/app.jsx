@@ -33,7 +33,7 @@ export default class App extends Component {
       );
       const jsonResponse = await response.json();
       const [planetarySchedule] = jsonResponse.planetarySchedule;
-      // console.log("planetary schedule: ", planetarySchedule);
+      console.log("planetary schedule: ", planetarySchedule);
       planetarySchedule
         ? this.receivePlanetarySchedule(planetarySchedule, isCurrentMonth)
         : this.createPlanetarySchedule(month, isCurrentMonth);
@@ -120,8 +120,8 @@ export default class App extends Component {
       month
     );
 
-    if (nextDays.length < 14) {
-      const diff = 14 - nextDays.length;
+    if (nextDays.length < 17) {
+      const diff = 17 - nextDays.length;
       const nextNextDays = mapShortTermLunarCalendar(
         nextMonth.slice(0, diff),
         0,
