@@ -5,7 +5,7 @@ import MoonDisplay from "./moonDisplay.jsx";
 import moonPhases from "../moonPhaseList.js";
 
 const Moon = ({ lunationNumber, lunarSchedule, loading, date }) => {
-  const day = date.getDate();
+  const day = date.getDate() - 1;
   const month = date.getMonth();
   const year = date.getFullYear();
   const currentPhase = determineMoonPhase(lunationNumber);
@@ -55,7 +55,7 @@ const determineMoonPhase = lunationNumber => {
 
 const findNextSignificantMoon = lunarSchedule => {
   const nextSignificantMoon = {};
-  // console.log(lunarSchedule);
+  console.log(lunarSchedule);
   for (let i = 0; i < lunarSchedule.length; i++) {
     const { lunation } = lunarSchedule[i];
     if (lunation > 0.48 && lunation < 0.52) {

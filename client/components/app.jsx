@@ -21,6 +21,7 @@ export default class App extends Component {
   }
 
   //months are all 0-index
+  //days are all 0-index in app--be aware that .getDate returns 1-index, however!
 
   //NOTE TO DEV: getPlanetary needs to be set up to handle the december - january jump
 
@@ -47,7 +48,7 @@ export default class App extends Component {
 
   async receivePlanetarySchedule(planetarySchedule, isCurrentMonth) {
     if (isCurrentMonth) {
-      const todaysIndex = this.state.date.getDate();
+      const todaysIndex = this.state.date.getDate() - 1;
       const todaysLunation = planetarySchedule.days[todaysIndex].moon;
       const todaysRetrograde = planetarySchedule.days[todaysIndex].mercury;
       this.setState({
@@ -119,8 +120,8 @@ export default class App extends Component {
       month
     );
 
-    if (nextDays.length < 14) {
-      const diff = 14 - nextDays.length;
+    if (nextDays.length < 17) {
+      const diff = 17 - nextDays.length;
       const nextNextDays = mapShortTermLunarCalendar(
         nextMonth.slice(0, diff),
         0,

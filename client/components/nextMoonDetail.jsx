@@ -15,8 +15,10 @@ const NextMoonDetail = ({ nextMoon, nextMoonCountdown }) => {
         {`, `}
         <Zodiac day={day} month={month} phase={phase} />
         {`.`}
-        {nextMoonCountdown <= 3 && nextMoonCountdown > 0
+        {nextMoonCountdown <= 3 && nextMoonCountdown > 1
           ? ` ${nextMoonCountdown} days remain!`
+          : nextMoonCountdown === 1
+          ? ` Only ${nextMoonCountdown} day remains!`
           : null}
       </span>
     </div>
