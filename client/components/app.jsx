@@ -25,23 +25,28 @@ export default class App extends Component {
 
   //NOTE TO DEV: getPlanetary needs to be set up to handle the december - january jump
 
-  async getPlanetarySchedule(month = this.state.date.getMonth()) {
+  async getPlanetarySchedule(
+    month = this.state.date.getMonth(),
+    year = this.state.date.getFullYear()
+  ) {
     const isCurrentMonth = month === new Date().getMonth();
     try {
       const response = await fetch(
-        `http://moonar.us-east-2.elasticbeanstalk.com/api/months?month=${month}`
+        `http://moonar.us-east-2.elasticbeanstalk.com/api/months?month=${month}&year=${year}`
       );
       const jsonResponse = await response.json();
       const [planetarySchedule] = jsonResponse.planetarySchedule;
       console.log("planetary schedule: ", planetarySchedule);
       planetarySchedule
         ? this.receivePlanetarySchedule(planetarySchedule, isCurrentMonth)
-        : this.createPlanetarySchedule(month, isCurrentMonth);
+        : this.createPlanetarySchedule(month, isCurrentMonth, year);
     } catch (e) {
       console.error(e);
     } finally {
       isCurrentMonth && month < 11
         ? this.getPlanetarySchedule(month + 1)
+        : isCurrentMonth && month >= 11
+        ? this.getPlanetarySchedule(0, year + 1)
         : null;
     }
   }
@@ -62,10 +67,10 @@ export default class App extends Component {
     }
   }
 
-  async createPlanetarySchedule(month, isCurrentMonth) {
+  async createPlanetarySchedule(month, isCurrentMonth, year) {
     isCurrentMonth ? this.setState({ currentlyFetching: true }) : null;
     try {
-      const cosmicMonth = await this.callMoonAPI(month);
+      const cosmicMonth = await this.callMoonAPI(month, year);
       cosmicMonth
         ? this.postPlanetarySchedule(cosmicMonth, isCurrentMonth)
         : console.log("oops! no response from external API call");
@@ -89,10 +94,10 @@ export default class App extends Component {
     }
   }
 
-  async callMoonAPI(month) {
+  async callMoonAPI(month, year) {
     try {
       const response = await fetch(
-        `http://moonar.us-east-2.elasticbeanstalk.com/api/external/months?month=${month}`
+        `http://moonar.us-east-2.elasticbeanstalk.com/api/external/months?month=${month}&year=${year}`
       );
       const jsonResponse = await response.json();
       // console.log("response: ", jsonResponse);
@@ -108,7 +113,6 @@ export default class App extends Component {
     const month = date.getMonth();
 
     const mapShortTermLunarCalendar = (nextDays, startingDate, month) => {
-      // console.log("mapper ran", nextDays);
       return nextDays.map((d, i) => {
         return { lunation: d.moon, day: startingDate + i, month };
       });
