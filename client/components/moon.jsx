@@ -44,7 +44,7 @@ Moon.propTypes = {
 
 const determineMoonPhase = lunationNumber => {
   let moonSelectorIndex = 0;
-  let lunationUpperBoundary = 0.02;
+  let lunationUpperBoundary = 0.03;
 
   while (lunationUpperBoundary < lunationNumber) {
     lunationUpperBoundary += moonSelectorIndex % 2 === 0 ? 0.22 : 0.03;
@@ -55,16 +55,23 @@ const determineMoonPhase = lunationNumber => {
 
 const findNextSignificantMoon = lunarSchedule => {
   const nextSignificantMoon = {};
-  console.log(lunarSchedule);
+  // console.log(lunarSchedule);
   for (let i = 0; i < lunarSchedule.length; i++) {
     const { lunation } = lunarSchedule[i];
-    if (lunation > 0.48 && lunation < 0.52) {
+    if (
+      (lunation > 0.49 && lunation < 0.53) ||
+      (lunation === 0.53 && i > 0 && lunarSchedule[i - 1] !== 0.5)
+    ) {
       const { day, month } = lunarSchedule[i];
       nextSignificantMoon.phase = "full";
       nextSignificantMoon.day = day;
       nextSignificantMoon.month = month;
       return nextSignificantMoon;
-    } else if (lunation > 0.98 || lunation < 0.02) {
+    } else if (
+      lunation > 0.99 ||
+      lunation < 0.03 ||
+      (lunation === 0.03 && i > 0 && lunarSchedule[i - 1] !== 1)
+    ) {
       const { day, month } = lunarSchedule[i];
       nextSignificantMoon.phase = "new";
       nextSignificantMoon.day = day;
