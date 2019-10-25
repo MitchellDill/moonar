@@ -60,7 +60,7 @@ const determineMoonPhase = (lunationNumber, yesterdaysLunationNumber) => {
   let moonSelectorIndex = 0;
   let lunationUpperBoundary = 0.03;
 
-  while (lunationUpperBoundary < lunationNumber) {
+  while (lunationUpperBoundary <= lunationNumber) {
     lunationUpperBoundary += moonSelectorIndex % 2 === 0 ? 0.22 : 0.03;
     moonSelectorIndex++;
   }
@@ -75,6 +75,7 @@ const determineMoonPhase = (lunationNumber, yesterdaysLunationNumber) => {
       moonSelectorIndex--;
     }
   }
+
   return moonPhases[moonSelectorIndex];
 };
 
