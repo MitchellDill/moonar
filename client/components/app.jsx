@@ -10,6 +10,7 @@ export default class App extends Component {
     this.state = {
       date: new Date(),
       lunationNumber: 2,
+      yesterdaysLunationNumber: 2,
       isMercuryRetrograde: false,
       currentMonth: [],
       nextMonth: [],
@@ -22,8 +23,6 @@ export default class App extends Component {
 
   //months are all 0-index
   //days are all 0-index in app--be aware that .getDate returns 1-index, however!
-
-  //NOTE TO DEV: getPlanetary needs to be set up to handle the december - january jump
 
   async getPlanetarySchedule(
     month = this.state.date.getMonth(),
@@ -56,8 +55,14 @@ export default class App extends Component {
       const todaysIndex = this.state.date.getDate() - 1;
       const todaysLunation = planetarySchedule.days[todaysIndex].moon;
       const todaysRetrograde = planetarySchedule.days[todaysIndex].mercury;
+      const yesterdaysIndex = todaysIndex > 0 ? todaysIndex - 1 : 0;
+      const yesterdaysLunation =
+        todaysIndex !== yesterdaysIndex
+          ? planetarySchedule.days[yesterdaysIndex].moon
+          : 2;
       this.setState({
         lunationNumber: todaysLunation,
+        yesterdaysLunationNumber: yesterdaysLunation,
         isMercuryRetrograde: todaysRetrograde,
         currentMonth: planetarySchedule.days,
         currentlyFetching: false,
@@ -171,6 +176,7 @@ export default class App extends Component {
           <Moon
             lunationNumber={this.state.lunationNumber}
             lunarSchedule={this.compileUpcomingLunation()}
+            yesterdaysLunationNumber={this.state.yesterdaysLunationNumber}
             loading={this.state.currentlyFetching}
             date={this.state.date}
           />
