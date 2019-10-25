@@ -10,6 +10,7 @@ export default class App extends Component {
     this.state = {
       date: new Date(),
       lunationNumber: 2,
+      yesterdaysLunationNumber: 2,
       isMercuryRetrograde: false,
       currentMonth: [],
       nextMonth: [],
@@ -21,37 +22,47 @@ export default class App extends Component {
   }
 
   //months are all 0-index
+  //days are all 0-index in app--be aware that .getDate returns 1-index, however!
 
-  //NOTE TO DEV: getPlanetary needs to be set up to handle the december - january jump
-
-  async getPlanetarySchedule(month = this.state.date.getMonth()) {
+  async getPlanetarySchedule(
+    month = this.state.date.getMonth(),
+    year = this.state.date.getFullYear()
+  ) {
     const isCurrentMonth = month === new Date().getMonth();
     try {
       const response = await fetch(
-        `http://moonar.us-east-2.elasticbeanstalk.com/api/months?month=${month}`
+        `http://moonar.us-east-2.elasticbeanstalk.com/api/months?month=${month}&year=${year}`
       );
       const jsonResponse = await response.json();
       const [planetarySchedule] = jsonResponse.planetarySchedule;
       console.log("planetary schedule: ", planetarySchedule);
       planetarySchedule
         ? this.receivePlanetarySchedule(planetarySchedule, isCurrentMonth)
-        : this.createPlanetarySchedule(month, isCurrentMonth);
+        : this.createPlanetarySchedule(month, isCurrentMonth, year);
     } catch (e) {
       console.error(e);
     } finally {
       isCurrentMonth && month < 11
         ? this.getPlanetarySchedule(month + 1)
+        : isCurrentMonth && month >= 11
+        ? this.getPlanetarySchedule(0, year + 1)
         : null;
     }
   }
 
   async receivePlanetarySchedule(planetarySchedule, isCurrentMonth) {
     if (isCurrentMonth) {
-      const todaysIndex = this.state.date.getDate();
+      const todaysIndex = this.state.date.getDate() - 1;
       const todaysLunation = planetarySchedule.days[todaysIndex].moon;
       const todaysRetrograde = planetarySchedule.days[todaysIndex].mercury;
+      const yesterdaysIndex = todaysIndex > 0 ? todaysIndex - 1 : 0;
+      const yesterdaysLunation =
+        todaysIndex !== yesterdaysIndex
+          ? planetarySchedule.days[yesterdaysIndex].moon
+          : 2;
       this.setState({
         lunationNumber: todaysLunation,
+        yesterdaysLunationNumber: yesterdaysLunation,
         isMercuryRetrograde: todaysRetrograde,
         currentMonth: planetarySchedule.days,
         currentlyFetching: false,
@@ -61,10 +72,10 @@ export default class App extends Component {
     }
   }
 
-  async createPlanetarySchedule(month, isCurrentMonth) {
+  async createPlanetarySchedule(month, isCurrentMonth, year) {
     isCurrentMonth ? this.setState({ currentlyFetching: true }) : null;
     try {
-      const cosmicMonth = await this.callMoonAPI(month);
+      const cosmicMonth = await this.callMoonAPI(month, year);
       cosmicMonth
         ? this.postPlanetarySchedule(cosmicMonth, isCurrentMonth)
         : console.log("oops! no response from external API call");
@@ -88,10 +99,10 @@ export default class App extends Component {
     }
   }
 
-  async callMoonAPI(month) {
+  async callMoonAPI(month, year) {
     try {
       const response = await fetch(
-        `http://moonar.us-east-2.elasticbeanstalk.com/api/external/months?month=${month}`
+        `http://moonar.us-east-2.elasticbeanstalk.com/api/external/months?month=${month}&year=${year}`
       );
       const jsonResponse = await response.json();
       // console.log("response: ", jsonResponse);
@@ -107,7 +118,6 @@ export default class App extends Component {
     const month = date.getMonth();
 
     const mapShortTermLunarCalendar = (nextDays, startingDate, month) => {
-      // console.log("mapper ran", nextDays);
       return nextDays.map((d, i) => {
         return { lunation: d.moon, day: startingDate + i, month };
       });
@@ -119,8 +129,8 @@ export default class App extends Component {
       month
     );
 
-    if (nextDays.length < 14) {
-      const diff = 14 - nextDays.length;
+    if (nextDays.length < 17) {
+      const diff = 17 - nextDays.length;
       const nextNextDays = mapShortTermLunarCalendar(
         nextMonth.slice(0, diff),
         0,
@@ -166,6 +176,7 @@ export default class App extends Component {
           <Moon
             lunationNumber={this.state.lunationNumber}
             lunarSchedule={this.compileUpcomingLunation()}
+            yesterdaysLunationNumber={this.state.yesterdaysLunationNumber}
             loading={this.state.currentlyFetching}
             date={this.state.date}
           />
