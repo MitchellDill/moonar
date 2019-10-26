@@ -16,17 +16,15 @@ const moonPhaseImage = ({ phase }) => {
   let borderClass = borderHighlight ? styles["borderHighlight"] : styles[""];
 
   return (
-    <>
-      <img
-        src={selectMoonPhaseImage(phase)}
-        alt={`${phase} drawing`}
-        onClick={() => {
-          console.log("clicky");
-          showBorderHighlight(!borderHighlight);
-        }}
-        id={borderClass}
-      />
-    </>
+    <div
+      onClick={() => {
+        console.log("clicky");
+        showBorderHighlight(!borderHighlight);
+      }}
+      id={borderClass}
+    >
+      <img src={selectMoonPhaseImage(phase)} alt={`${phase} drawing`} />
+    </div>
   );
 };
 
