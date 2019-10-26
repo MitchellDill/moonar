@@ -1,6 +1,7 @@
 const whitelist = [
   'http://localhost:3000',
   'http://moonar.us-east-2.elasticbeanstalk.com',
+  'http://moonar.rocks',
 ];
 
 const corsOptions = {
