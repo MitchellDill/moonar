@@ -2,18 +2,14 @@ import React from "react";
 import { shallow, mount } from "enzyme";
 import NextMoonDetail from "../client/components/nextMoonDetail";
 
-const testNextMoon = { phase: "full", day: 0, month: 0 };
+const testNextMoon = { phase: "full", day: 0, month: 0, countdown: 1 };
 
 describe("NextMoonDetail component", () => {
   test("should shallow render without throwing an error", () => {
-    expect(
-      shallow(<NextMoonDetail nextMoon={testNextMoon} nextMoonCountdown={3} />)
-    );
+    expect(shallow(<NextMoonDetail nextMoon={testNextMoon} />));
   });
 
   test("should mount in a full DOM render", () => {
-    expect(
-      mount(<NextMoonDetail nextMoon={testNextMoon} nextMoonCountdown={3} />)
-    );
+    expect(mount(<NextMoonDetail nextMoon={testNextMoon} />));
   });
 });
