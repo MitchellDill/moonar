@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import Date from "./date.jsx";
 import Zodiac from "./zodiac.jsx";
 
-const NextMoonDetail = ({ nextMoon, nextMoonCountdown }) => {
-  const { phase, day, month } = nextMoon;
+const NextMoonDetail = ({ nextMoon }) => {
+  const { phase, day, month, countdown } = nextMoon;
   const zeroIndexDate = { zeroDay: day, zeroMonth: month };
 
   return (
@@ -15,10 +15,10 @@ const NextMoonDetail = ({ nextMoon, nextMoonCountdown }) => {
         {`, `}
         <Zodiac day={day} month={month} phase={phase} />
         {`.`}
-        {nextMoonCountdown <= 3 && nextMoonCountdown > 1
-          ? ` ${nextMoonCountdown} days remain!`
-          : nextMoonCountdown === 1
-          ? ` Only ${nextMoonCountdown} day remains!`
+        {countdown <= 3 && countdown > 1
+          ? ` ${countdown} days remain!`
+          : countdown === 1
+          ? ` Only ${countdown} day remains!`
           : null}
       </span>
     </div>
@@ -29,5 +29,5 @@ export default NextMoonDetail;
 
 NextMoonDetail.propTypes = {
   nextMoon: PropTypes.object,
-  nextMoonCountdown: PropTypes.number,
+  countdown: PropTypes.number,
 };

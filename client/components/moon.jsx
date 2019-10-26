@@ -13,19 +13,11 @@ const Moon = ({
 }) => {
   const day = date.getDate() - 1;
   const month = date.getMonth();
-  const year = date.getFullYear();
   const currentPhase = determineMoonPhase(
     lunationNumber,
     yesterdaysLunationNumber
   );
   const nextMoon = findNextSignificantMoon(lunarSchedule);
-  const nextMoonCountdown = findDaysTilNextSignificantMoon(
-    day,
-    month,
-    nextMoon.day,
-    nextMoon.month,
-    year
-  );
 
   return (
     <>
@@ -37,10 +29,7 @@ const Moon = ({
       {nextMoon.phase === "loading" ? (
         "lookin' for that moon, friend..."
       ) : (
-        <NextMoonDetail
-          nextMoon={nextMoon}
-          nextMoonCountdown={nextMoonCountdown}
-        />
+        <NextMoonDetail nextMoon={nextMoon} />
       )}
     </>
   );
@@ -92,6 +81,7 @@ const findNextSignificantMoon = lunarSchedule => {
       nextSignificantMoon.phase = "full";
       nextSignificantMoon.day = day;
       nextSignificantMoon.month = month;
+      nextSignificantMoon.countdown = i + 1;
       return nextSignificantMoon;
     } else if (
       lunation > 0.99 ||
@@ -102,35 +92,9 @@ const findNextSignificantMoon = lunarSchedule => {
       nextSignificantMoon.phase = "new";
       nextSignificantMoon.day = day;
       nextSignificantMoon.month = month;
+      nextSignificantMoon.countdown = i + 1;
       return nextSignificantMoon;
     }
   }
   return { phase: "loading", day: 1, month: 1 };
-};
-
-const findDaysTilNextSignificantMoon = (
-  currentDay,
-  currentMonth,
-  nextDay,
-  nextMonth,
-  currentYear
-) => {
-  let daysInMonth;
-  if (currentMonth === 1) {
-    if (currentYear % 4 === 0) {
-      daysInMonth = 28;
-    } else {
-      daysInMonth = 27;
-    }
-  } else if (currentMonth % 2 === 0 && currentMonth < 7) {
-    daysInMonth = 31;
-  } else if (currentMonth % 2 !== 0 && currentMonth > 6) {
-    daysInMonth = 31;
-  } else {
-    daysInMonth = 30;
-  }
-  if (nextMonth > currentMonth || nextMonth - currentMonth === -11) {
-    nextDay += daysInMonth;
-  }
-  return nextDay - currentDay;
 };
