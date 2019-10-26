@@ -62,6 +62,7 @@ body {
       border-radius: 50%;
       margin-top: 12px;
       margin-bottom: 14px;
+      transition: transform 2s;
     }
   }
   .modal {
@@ -108,6 +109,10 @@ body {
       animation-name: bounceOut;
       animation-duration: 600ms;
     }
+  }
+  #borderHighlight {
+    transform: scale(1.04, 1.04);
+    transition: transform 1.2s;
   }
 }
 

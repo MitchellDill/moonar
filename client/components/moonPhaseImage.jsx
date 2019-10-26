@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import moonPhases from "../moonPhaseList.js";
 import newMoon from "../images/newMoon.png";
@@ -9,11 +9,23 @@ import lastQuarterMoon from "../images/quarterMoonLast.png";
 import waxingGibbousMoon from "../images/gibbousMoonWaxing.png";
 import waningGibbousMoon from "../images/gibbousMoonWaning.png";
 import fullMoon from "../images/fullMoon.png";
+import styles from "../style/main.less";
 
 const moonPhaseImage = ({ phase }) => {
+  const [borderHighlight, showBorderHighlight] = useState(false);
+  let borderClass = borderHighlight ? styles["borderHighlight"] : styles[""];
+
   return (
     <>
-      <img src={selectMoonPhaseImage(phase)} alt={`${phase} drawing`} />
+      <img
+        src={selectMoonPhaseImage(phase)}
+        alt={`${phase} drawing`}
+        onClick={() => {
+          console.log("clicky");
+          showBorderHighlight(!borderHighlight);
+        }}
+        id={borderClass}
+      />
     </>
   );
 };
