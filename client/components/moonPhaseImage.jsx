@@ -13,17 +13,25 @@ import styles from "../style/main.less";
 
 const moonPhaseImage = ({ phase }) => {
   const [borderHighlight, showBorderHighlight] = useState(false);
-  let borderClass = borderHighlight ? styles["borderHighlight"] : styles[""];
+  let borderClass = borderHighlight
+    ? styles["borderHighlight"]
+    : styles["borderUnhighlight"];
 
   return (
     <div
       onClick={() => {
-        console.log("clicky");
-        showBorderHighlight(!borderHighlight);
+        borderHighlight ? showBorderHighlight(false) : null;
       }}
-      id={borderClass}
     >
-      <img src={selectMoonPhaseImage(phase)} alt={`${phase} drawing`} />
+      <div id={borderClass}>
+        <img
+          src={selectMoonPhaseImage(phase)}
+          alt={`${phase} drawing`}
+          onClick={() => {
+            showBorderHighlight(!borderHighlight);
+          }}
+        />
+      </div>
     </div>
   );
 };
