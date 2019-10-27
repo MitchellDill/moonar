@@ -11,10 +11,11 @@ const renderDateAsText = (day, month) => {
 const renderNumberAsOrdinal = number => {
   const ordinalEndings = ["th", "st", "nd", "rd"];
   const numberString = number.toString();
-  const index = numberString[numberString.length - 1];
-  return index > 3
+  const firstDigit = numberString[0];
+  const lastDigit = Number(numberString[numberString.length - 1]);
+  return lastDigit > 3 || (firstDigit === "1" && numberString.length !== 1)
     ? numberString.concat(ordinalEndings[0])
-    : numberString.concat(ordinalEndings[index]);
+    : numberString.concat(ordinalEndings[lastDigit]);
 };
 
 const Date = ({ zeroIndexDate }) => {
