@@ -1,6 +1,6 @@
 const moonPhases = [
   'new',
-  'waxing cresent',
+  'waxing crescent',
   'first quarter',
   'waxing gibbous',
   'full',
