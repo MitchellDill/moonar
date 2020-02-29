@@ -30,11 +30,11 @@ const fetchMercuryRetrograde = async (date) => {
 
 const buildCosmicMonth = async (month, year) => {
   let daysInMonth;
-  if (month === 1) {
+  if (month === 1 || month === '1') {
     if (year % 4 === 0) {
-      daysInMonth = 28;
+      daysInMonth = 29;
     } else {
-      daysInMonth = 27;
+      daysInMonth = 28;
     }
   } else if (month % 2 === 0 && month < 7) {
     daysInMonth = 31;
